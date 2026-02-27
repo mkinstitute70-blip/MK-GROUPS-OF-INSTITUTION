@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MK Classes Jhajjar | Official Supreme Portal</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@300;400;500;600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           SECTION 1: SUPREME CSS VARIABLES ENGINE
+           =========================================
+        */
+        :root {
+            --mk-navy-dark: #020d19;
+            --mk-navy-medium: #05162a;
+            --mk-navy-light: #0a1e33;
+            --mk-orange-main: #ff9f1c;
+            --mk-orange-glow: rgba(255, 159, 28, 0.5);
+            --mk-white: #ffffff;
+            --mk-smoke: #f4f7f9;
+            --mk-grey-text: #7f8c8d;
+            --mk-danger: #e74c3c;
+            --mk-success: #27ae60;
+            --mk-warning: #f1c40f;
+            --mk-info: #3498db;
+            --mk-font-main: 'Poppins', sans-serif;
+            --mk-font-head: 'Montserrat', sans-serif;
+            --mk-header-h: 130px;
+            --mk-radius-sm: 10px;
+            --mk-radius-md: 20px;
+            --mk-radius-lg: 35px;
+            --mk-shadow-light: 0 5px 15px rgba(0,0,0,0.05);
+            --mk-shadow-heavy: 0 20px 50px rgba(0,0,0,0.2);
+            --mk-trans-fast: 0.2s ease;
+            --mk-trans-slow: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* =========================================
+           SECTION 2: GLOBAL RESET & SCROLL
+           =========================================
+        */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--mk-font-main);
+            background-color: var(--mk-smoke);
+            color: var(--mk-navy-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--mk-navy-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--mk-orange-main);
+            border: 3px solid var(--mk-navy-dark);
+            border-radius: 10px;
+        }
+
+        /* =========================================
+           SECTION 3: HEADER & NAV SYSTEM
+           =========================================
+        */
+        header {
+            background: var(--mk-navy-dark);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 99999;
+            border-bottom: 5px solid var(--mk-orange-main);
+            height: var(--mk-header-h);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .header-top {
+            padding: 15px 0 5px 0;
+            text-align: center;
+        }
+
+        .logo-box h1 {
+            font-family: var(--mk-font-head);
+            font-weight: 900;
+            font-size: 28px;
+            color: var(--mk-white);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .logo-box h1 span {
+            color: var(--mk-orange-main);
+        }
+
+        nav {
+            display: flex;
+            background: var(--mk-navy-light);
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-item {
+            flex: 1;
+            min-width: 80px;
+            padding: 12px 5px;
+            border: none;
+            background: transparent;
+            color: #d1d8e0;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+            transition: var(--mk-trans-fast);
+        }
+
+        .nav-item i {
+            font-size: 18px;
+            color: var(--mk-orange-main);
+            transition: var(--mk-trans-slow);
+        }
+
+        .nav-item.active {
+            background: var(--mk-orange-main);
+            color: var(--mk-navy-dark);
+        }
+
+        .nav-item.active i {
+            color: var(--mk-navy-dark);
+            transform: scale(1.2);
+        }
+
+        /* =========================================
+           SECTION 4: LAYOUT & CONTAINERS
+           =========================================
+        */
+        .main-wrapper {
+            max-width: 1100px;
+            margin: calc(var(--mk-header-h) + 30px) auto 100px auto;
+            padding: 0 20px;
+        }
+
+        .view-pane {
+            display: none;
+            animation: paneEntry 0.6s ease-out;
+        }
+
+        .view-pane.active {
+            display: block;
+        }
+
+        @keyframes paneEntry {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .mk-card {
+            background: var(--mk-white);
+            border-radius: var(--mk-radius-md);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--mk-shadow-light);
+            border-top: 5px solid var(--mk-navy-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mk-card-title {
+            font-family: var(--mk-font-head);
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--mk-navy-dark);
+        }
+
+        .mk-card-title i {
+            color: var(--mk-orange-main);
+        }
+
+        /* =========================================
+           SECTION 5: HOME HERO (TAGLINE HERE)
+           =========================================
+        */
+        .hero-banner {
+            background: linear-gradient(rgba(2, 13, 25, 0.85), rgba(2, 13, 25, 0.85)), 
+                        url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800');
+            background-size: cover;
+            background-position: center;
+            height: 350px;
+            border-radius: var(--mk-radius-lg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+            border: 4px solid var(--mk-orange-main);
+            margin-bottom: 40px;
+            box-shadow: var(--mk-shadow-heavy);
+        }
+
+        .hero-banner h2 {
+            font-family: var(--mk-font-head);
+            font-size: 38px;
+            font-weight: 900;
+            color: var(--mk-white);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.1;
+        }
+
+        .hero-banner .tagline {
+            display: block;
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--mk-orange-main);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        /* =========================================
+           SECTION 6: UI COMPONENTS (FORMS & BTNS)
+           =========================================
+        */
+        .form-row {
+            margin-bottom: 22px;
+        }
+
+        .form-row label {
+            display: block;
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--mk-grey-text);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .mk-input {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: 15px;
+            border: 2px solid #eef2f6;
+            background: #fafbfc;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 500;
+            transition: var(--mk-trans-fast);
+        }
+
+        .mk-input:focus {
+            border-color: var(--mk-orange-main);
+            background: white;
+            outline: none;
+            box-shadow: 0 5px 15px var(--mk-orange-glow);
+        }
+
+        .btn-supreme {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 15px;
+            background: var(--mk-navy-dark);
+            color: white;
+            font-family: var(--mk-font-head);
+            font-weight: 800;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--mk-trans-slow);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-supreme:hover {
+            background: var(--mk-orange-main);
+            color: var(--mk-navy-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px var(--mk-orange-glow);
+        }
+
+        .btn-delete {
+            background: var(--mk-danger);
+            margin-top: 10px;
+        }
+
+        /* =========================================
+           SECTION 7: GALLERY & GRID SYSTEM
+           =========================================
+        */
+        .gallery-filter {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border-radius: 50px;
+            background: #eee;
+            border: none;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        .filter-btn.active {
+            background: var(--mk-navy-dark);
+            color: white;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-item {
+            width: 100%;
+            height: 150px;
+            border-radius: 15px;
+            object-fit: cover;
+            background: #ddd;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 3px solid white;
+            box-shadow: var(--mk-shadow-light);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            border-color: var(--mk-orange-main);
+        }
+
+        /* =========================================
+           SECTION 8: PORTAL & ADMIN PANELS
+           =========================================
+        */
+        .data-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 10px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .badge-success { background: #e8f5e9; color: var(--mk-success); }
+        .badge-danger { background: #ffebee; color: var(--mk-danger); }
+
+        .fee-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px dashed #eee;
+        }
+
+        .fee-row.total {
+            border-bottom: none;
+            font-weight: 900;
+            font-size: 18px;
+            color: var(--mk-navy-dark);
+        }
+
+        /* =========================================
+           SECTION 9: WHATSAPP FLOAT
+           =========================================
+        */
+        .wa-float {
+            position: fixed;
+            bottom: 30px;
+            right: 25px;
+            width: 65px;
+            height: 65px;
+            background: #25d366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+            z-index: 9999;
+            text-decoration: none;
+            border: 3px solid white;
+            transition: 0.3s;
+        }
+
+        .wa-float:hover { transform: scale(1.1) rotate(10deg); }
+
+        /* =========================================
+           SECTION 10: RESPONSIVE OVERRIDES
+           =========================================
+        */
+        @media (max-width: 600px) {
+            .hero-banner h2 { font-size: 26px; }
+            .hero-banner .tagline { font-size: 12px; letter-spacing: 3px; }
+            .mk-card { padding: 20px; }
+            :root { --mk-header-h: 140px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-top">
+        <div class="logo-box">
+            <h1>MK <span>CLASSES</span></h1>
+        </div>
+    </div>
+    <nav id="masterNav">
+        <button class="nav-item active" onclick="switchPane('home', this)">
+            <i class="fa fa-home-alt"></i>Home
+        </button>
+        <button class="nav-item" onclick="switchPane('admission', this)">
+            <i class="fa fa-user-plus"></i>Inquiry
+        </button>
+        <button class="nav-item" onclick="switchPane('news', this)">
+            <i class="fa fa-bullhorn"></i>News
+        </button>
+        <button class="nav-item" onclick="switchPane('acad', this)">
+            <i class="fa fa-book-reader"></i>Wings
+        </button>
+        <button class="nav-item" onclick="switchPane('campus', this)">
+            <i class="fa fa-camera-retro"></i>Campus
+        </button>
+        <button class="nav-item" onclick="switchPane('fees', this)">
+            <i class="fa fa-wallet"></i>Fees
+        </button>
+        <button class="nav-item" onclick="switchPane('portal', this)">
+            <i class="fa fa-fingerprint"></i>Portal
+        </button>
+        <button class="nav-item" onclick="switchPane('admin', this)">
+            <i class="fa fa-user-shield"></i>Admin
+        </button>
+    </nav>
+</header>
+
+<div class="main-wrapper">
+
+    <section id="home" class="view-pane active">
+        <div class="hero-banner">
+            <h2>MK Group of Institutions</h2>
+            <span class="tagline">Your Future Our Mission</span>
+        </div>
+        
+        <div class="mk-card">
+            <h2 class="mk-card-title"><i class="fa fa-shield-alt"></i> Admission Open 2026-27</h2>
+            <p>Welcome to Jhajjar's premier defense coaching institute. We specialize in transforming students into cadets for RIMC, Sainik School, and Military Schools.</p>
+            <div style="margin-top:20px; padding:15px; background:#fff9e6; border-radius:15px; border-left:5px solid var(--mk-warning);">
+                <p style="font-weight:700; color:#856404;"><i class="fa fa-info-circle"></i> ELIGIBILITY NOTE:</p>
+                <p>Admission available for <b>Class 1st to 11th</b> only. We provide safe and separate <b>Hostel for Boys & Girls</b>.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="admission" class="view-pane">
+        <div class="mk-card">
+            <h2 class="mk-card-title"><i class="fa fa-edit"></i> Registration Form</h2>
+            <div class="form-row">
+                <label>Cadet Name</label>
+                <input type="text" class="mk-input" id="inq_name" placeholder="Full Name">
+            </div>
+            <div class="form-row">
+                <label>Parent's Name</label>
+                <input type="text" class="mk-input" id="inq_parent" placeholder="Father/Mother Name">
+            </div>
+            <div class="form-row">
+                <label>Target Class (Type Your Class)</label>
+                <input type="text" class="mk-input" id="inq_class" placeholder="Example: 5th, 6th B, 11th (Medical)">
+            </div>
+            <div class="form-row">
+                <label>Contact Number</label>
+                <input type="number" class="mk-input" id="inq_phone" placeholder="WhatsApp Number">
+            </div>
+            <button class="btn-supreme" onclick="submitInquiry()">
+                <i class="fa fa-paper-plane"></i> Send Inquiry
+            </button>
+        </div>
+    </section>
+
+    <section id="news" class="view-pane">
+        <div class="mk-card">
+            <h2 class="mk-card-title"><i class="fa fa-clock"></i> Contact & News</h2>
+            <div style="line-height:2.5;">
+                <p><i class="fa fa-map-marker-alt" style="color:var(--mk-orange-main); width:25px;"></i> As Kharaab College, Kasni, Jhajjar</p>
+                <p><i class="fa fa-phone-alt" style="color:var(--mk-orange-main); width:25px;"></i> +91 8810285636</p>
+                <p><i class="fa fa-envelope" style="color:var(--mk-orange-main); width:25px;"></i> mkinstitute70@gmail.com</p>
+            </div>
+        </div>
+        <div id="newsContainer"></div>
+    </section>
+
+    <section id="acad" class="view-pane">
+        <div class="mk-card" style="border-left-color: var(--mk-info);">
+            <h2 class="mk-card-title">Junior Foundation</h2>
+            <p>For Class 1st to 5th. Developing strong basics in English and Mathematics.</p>
+        </div>
+        <div class="mk-card" style="border-left-color: var(--mk-warning);">
+            <h2 class="mk-card-title">Military Entrance Wing</h2>
+            <p>For Class 6th to 9th. Dedicated prep for AISSEE, RIMC and RMS entrance exams.</p>
+        </div>
+        <div class="mk-card" style="border-left-color: var(--mk-success);">
+            <h2 class="mk-card-title">NDA Warrior Wing</h2>
+            <p>For Class 10th to 11th. Integrated schooling with NDA preparation.</p>
+        </div>
+    </section>
+
+    <section id="campus" class="view-pane">
+        <div class="mk-card">
+            <h2 class="mk-card-title"><i class="fa fa-images"></i> Campus Life</h2>
+            <div class="gallery-filter">
+                <button class="filter-btn active" onclick="applyFilter('all', this)">All</button>
+                <button class="filter-btn" onclick="applyFilter('class', this)">Classes</button>
+                <button class="filter-btn" onclick="applyFilter('ground', this)">Play Ground</button>
+                <button class="filter-btn" onclick="applyFilter('hostel', this)">Hostel</button>
+            </div>
+            <div class="gallery-grid" id="galleryGrid"></div>
+        </div>
+    </section>
+
+    <section id="fees" class="view-pane">
+        <div class="mk-card">
+            <h2 class="mk-card-title"><i class="fa fa-receipt"></i> Annual Fees 2026</h2>
+            <div style="background:#f9f9f9; padding:20px; border-radius:15px; margin-bottom:15px;">
+                <h3 style="font-size:16px;">Primary Wing (1-5): ₹1,40,000/-</h3>
+                <small>Includes: Food, Residential, Uniform, Study Material</small>
+            </div>
+            <div style="background:#f9f9f9; padding:20px; border-radius:15px; margin-bottom:15px;">
+                <h3 style="font-size:16px;">Sainik Prep (6-9): ₹1,55,000/-</h3>
+                <small>Includes: Coaching, Mock Tests, Physical Training</small>
+            </div>
+            <div style="background:#f9f9f9; padding:20px; border-radius:15px;">
+                <h3 style="font-size:16px;">NDA Wing (10-11): ₹1,70,000/-</h3>
+                <small>Includes: Schooling + SSB Foundation + NDA Classes</small>
+            </div>
+        </div>
+    </section>
+
+    <section id="portal" class="view-pane">
+        <div id="portalLogin" class="mk-card">
+            <h2 class="mk-card-title"><i class="fa fa-user-lock"></i> Parent Login</h2>
+            <div class="form-row">
+                <label>Student Full Name</label>
+                <input type="text" class="mk-input" id="p_name" placeholder="As per records">
+            </div>
+            <div class="form-row">
+                <label>Admission ID</label>
+                <input type="text" class="mk-input" id="p_id" placeholder="Ex: MK26-001">
+            </div>
+            <button class="btn-supreme" onclick="portalAccess()">
+                <i class="fa fa-sign-in-alt"></i> View Status
+            </button>
+        </div>
+        <div id="portalDash" style="display:none;"></div>
+    </section>
+
+    <section id="admin" class="view-pane">
+        <div id="adminLogin" class="mk-card">
+            <h2 class="mk-card-title">Security Check</h2>
+            <input type="password" class="mk-input" id="adm_pin" placeholder="Enter PIN">
+            <button class="btn-supreme" style="margin-top:20px" onclick="adminAccess()">Unlock</button>
+        </div>
+        
+        <div id="adminPanel" style="display:none;">
+            <div class="mk-card">
+                <h3 class="mk-card-title"><i class="fa fa-users-cog"></i> Power 1: Cadets</h3>
+                <div class="form-row"><input type="text" class="mk-input" id="ad_sname" placeholder="Full Name"></div>
+                <div class="form-row"><input type="text" class="mk-input" id="ad_sid" placeholder="Admission ID"></div>
+                <div class="form-row"><input type="number" class="mk-input" id="ad_spaid" placeholder="Paid Amount"></div>
+                <div class="form-row"><input type="number" class="mk-input" id="ad_stotal" placeholder="Total Fees"></div>
+                <button class="btn-supreme" style="background:var(--mk-success)" onclick="saveStudent()">Add/Update Student</button>
+                <hr style="margin:25px 0;">
+                <input type="text" class="mk-input" id="ad_delid" placeholder="Enter ID to Delete">
+                <button class="btn-supreme btn-delete" onclick="deleteStudent()">Remove Student Permanently</button>
+            </div>
+
+            <div class="mk-card">
+                <h3 class="mk-card-title"><i class="fa fa-newspaper"></i> Power 2: Post News</h3>
+                <textarea class="mk-input" id="ad_newsmsg" style="height:100px;" placeholder="Message..."></textarea>
+                <button class="btn-supreme" style="margin-top:15px" onclick="postNews()">Publish Notice</button>
+            </div>
+
+            <div class="mk-card">
+                <h3 class="mk-card-title"><i class="fa fa-camera"></i> Power 3: Photos</h3>
+                <select id="ad_galcat" class="mk-input">
+                    <option value="class">Classroom</option>
+                    <option value="ground">Ground</option>
+                    <option value="hostel">Hostel</option>
+                </select>
+                <input type="file" id="ad_galfile" class="mk-input" style="margin-top:10px;" accept="image/*">
+                <button class="btn-supreme" style="margin-top:15px" onclick="uploadPhoto()">Sync Gallery</button>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<a href="https://wa.me/918810285636" class="wa-float" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<script>
+    /* -------------------------------------------
+       GLOBAL CONSTANTS & DATA PERSISTENCE
+    ------------------------------------------- */
+    const SECURITY_PIN = "Mkclasses@1303";
+    
+    // Initializing Local Storage Repositories
+    let CADETS = JSON.parse(localStorage.getItem('MK_CADETS') || '[]');
+    let NOTICES = JSON.parse(localStorage.getItem('MK_NOTICES') || '[]');
+    let MEDIA = JSON.parse(localStorage.getItem('MK_MEDIA') || '[]');
+
+    /* -------------------------------------------
+       CORE NAVIGATION SYSTEM
+    ------------------------------------------- */
+    function switchPane(paneId, btn) {
+        // Hide all panes
+        const panes = document.querySelectorAll('.view-pane');
+        panes.forEach(pane => pane.classList.remove('active'));
+        
+        // Show target pane
+        const target = document.getElementById(paneId);
+        target.classList.add('active');
+        
+        // Update nav UI
+        const navBtns = document.querySelectorAll('.nav-item');
+        navBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        // Specific Logic for Dynamic Views
+        if(paneId === 'campus') renderGallery('all');
+        if(paneId === 'news') renderNewsFeed();
+        
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    /* -------------------------------------------
+       ADMIN PANEL LOGIC (POWERS)
+    ------------------------------------------- */
+    function adminAccess() {
+        const pin = document.getElementById('adm_pin').value;
+        if(pin === SECURITY_PIN) {
+            document.getElementById('adminLogin').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+        } else {
+            alert("WRONG SECURITY PIN! ACCESS DENIED.");
+        }
+    }
+
+    // Power 1: Manage Students
+    function saveStudent() {
+        const student = {
+            name: document.getElementById('ad_sname').value.trim(),
+            id: document.getElementById('ad_sid').value.trim().toUpperCase(),
+            paid: parseInt(document.getElementById('ad_spaid').value) || 0,
+            total: parseInt(document.getElementById('ad_stotal').value) || 0,
+            lastUpdate: new Date().toLocaleDateString()
+        };
+        
+        if(!student.name || !student.id) return alert("Fill Name and ID!");
+        
+        const index = CADETS.findIndex(c => c.id === student.id);
+        if(index > -1) CADETS[index] = student;
+        else CADETS.push(student);
+        
+        localStorage.setItem('MK_CADETS', JSON.stringify(CADETS));
+        alert("Cadet data synced to cloud!");
+    }
+
+    function deleteStudent() {
+        const id = document.getElementById('ad_delid').value.trim().toUpperCase();
+        if(!id) return alert("Enter ID to delete!");
+        
+        if(confirm("Confirm: Delete cadet permanently from records?")) {
+            CADETS = CADETS.filter(c => c.id !== id);
+            localStorage.setItem('MK_CADETS', JSON.stringify(CADETS));
+            alert("Cadet record purged.");
+        }
+    }
+
+    // Power 2: Broadcast Notice
+    function postNews() {
+        const msg = document.getElementById('ad_newsmsg').value;
+        if(!msg) return;
+        
+        NOTICES.unshift({
+            content: msg,
+            date: new Date().toLocaleDateString('en-GB', {day: 'numeric', month: 'short', year: 'numeric'})
+        });
+        
+        localStorage.setItem('MK_NOTICES', JSON.stringify(NOTICES));
+        alert("Notice published to public board.");
+        renderNewsFeed();
+    }
+
+    // Power 3: Media Control
+    function uploadPhoto() {
+        const file = document.getElementById('ad_galfile').files[0];
+        const category = document.getElementById('ad_galcat').value;
+        
+        if(!file) return alert("Select an image first!");
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            MEDIA.push({src: e.target.result, cat: category});
+            localStorage.setItem('MK_MEDIA', JSON.stringify(MEDIA));
+            alert("Image uploaded to " + category);
+        };
+        reader.readAsDataURL(file);
+    }
+
+    /* -------------------------------------------
+       PARENT PORTAL LOGIC (DOUBLE AUTH)
+    ------------------------------------------- */
+    function portalAccess() {
+        const inputName = document.getElementById('p_name').value.trim().toLowerCase();
+        const inputId = document.getElementById('p_id').value.trim().toUpperCase();
+        
+        const student = CADETS.find(c => c.name.toLowerCase() === inputName && c.id === inputId);
+        
+        if(student) {
+            document.getElementById('portalLogin').style.display = 'none';
+            const dash = document.getElementById('portalDash');
+            dash.style.display = 'block';
+            
+            const due = student.total - student.paid;
+            const status = due === 0 ? "badge-success" : "badge-danger";
+            const statusText = due === 0 ? "PAID" : "PENDING";
+            
+            dash.innerHTML = `
+                <div class="mk-card">
+                    <span class="data-badge ${status}">${statusText}</span>
+                    <h2 class="mk-card-title">${student.name}</h2>
+                    <p style="color:var(--mk-grey-text); font-weight:700;">ADM ID: ${student.id}</p>
+                    <hr style="margin:20px 0; border:none; border-bottom:1px solid #eee;">
+                    <div class="fee-row"><span>Total Annual Fee</span> <span>₹${student.total.toLocaleString()}</span></div>
+                    <div class="fee-row"><span>Fees Deposited</span> <span style="color:var(--mk-success)">₹${student.paid.toLocaleString()}</span></div>
+                    <div class="fee-row total"><span>Net Due</span> <span style="color:var(--mk-danger)">₹${due.toLocaleString()}</span></div>
+                    <button class="btn-supreme" style="background:#555; margin-top:30px;" onclick="location.reload()">
+                        <i class="fa fa-sign-out-alt"></i> Exit Portal
+                    </button>
+                </div>
+            `;
+        } else {
+            alert("No matching cadet found. Please check Name and Admission ID.");
+        }
+    }
+
+    /* -------------------------------------------
+       RENDERING ENGINES
+    ------------------------------------------- */
+    function renderGallery(filter) {
+        const container = document.getElementById('galleryGrid');
+        const items = MEDIA.filter(m => filter === 'all' || m.cat === filter);
+        
+        container.innerHTML = items.map(img => `
+            <img src="${img.src}" class="gallery-item" onclick="window.open(this.src)">
+        `).join('') || `<p style="grid-column:1/-1; text-align:center; padding:30px; color:#999;">No images in this category yet.</p>`;
+    }
+
+    function applyFilter(cat, btn) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderGallery(cat);
+    }
+
+    function renderNewsFeed() {
+        const container = document.getElementById('newsContainer');
+        container.innerHTML = NOTICES.map(n => `
+            <div class="mk-card" style="border-left:5px solid var(--mk-orange-main); border-top:none;">
+                <span style="font-size:10px; font-weight:800; color:var(--mk-orange-main);">${n.date}</span>
+                <p style="margin-top:10px; font-weight:600;">${n.content}</p>
+            </div>
+        `).join('') || `<p style="text-align:center; color:#999;">Notice Board is Empty.</p>`;
+    }
+
+    function submitInquiry() {
+        const name = document.getElementById('inq_name').value;
+        const cls = document.getElementById('inq_class').value;
+        if(!name || !cls) return alert("Fill mandatory fields!");
+        alert("Success: Inquiry for " + name + " recorded. We will call you soon.");
+    }
+
+    /* -------------------------------------------
+       BOOT ENGINE
+    ------------------------------------------- */
+    window.onload = function() {
+        console.log("MK SUPREME SYSTEM ONLINE");
+    };
+</script>
+
+</body>
+</html>
