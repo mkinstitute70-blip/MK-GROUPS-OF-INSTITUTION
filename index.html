@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MK Group | Multi-Theme Portal</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Poppins:wght@300;400;600;700;800&family=Oswald:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================================
+           1. DYNAMIC THEME ENGINE (ADMIN CONTROLLED)
+           ============================================================ */
+        :root {
+            --primary: #FFD700; /* Default Gold */
+            --primary-glow: rgba(255, 215, 0, 0.3);
+            --bg-dark: #0a0a0a;
+            --card-bg: #121212;
+            --header-h: 170px;
+            --radius: 25px;
+        }
+
+        /* Themes Library */
+        .theme-gold { --primary: #FFD700; --primary-glow: rgba(255, 215, 0, 0.3); }
+        .theme-blue { --primary: #00d4ff; --primary-glow: rgba(0, 212, 255, 0.3); }
+        .theme-green { --primary: #2ecc71; --primary-glow: rgba(46, 204, 113, 0.3); }
+        .theme-red { --primary: #ff4757; --primary-glow: rgba(255, 71, 87, 0.3); }
+        .theme-purple { --primary: #a55eea; --primary-glow: rgba(165, 94, 234, 0.3); }
+        .theme-orange { --primary: #ff7f50; --primary-glow: rgba(255, 127, 80, 0.3); }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            background-color: var(--bg-dark);
+            color: #fff;
+            padding-top: calc(var(--header-h) + 30px);
+            transition: 0.5s ease;
+        }
+
+        /* ================= :::: ROYAL HEADER :::: ================= */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; height: var(--header-h);
+            background: #000; z-index: 2000; border-bottom: 4px solid var(--primary);
+            display: flex; flex-direction: column; box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+        }
+
+        .brand-zone {
+            flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: linear-gradient(180deg, #151515 0%, #000 100%);
+        }
+
+        .brand-zone h1 {
+            font-family: 'Montserrat', sans-serif; font-size: 26px; color: #fff;
+            letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        .brand-zone h1 span {
+            display: block; font-size: 11px; letter-spacing: 6px; color: var(--primary);
+            text-align: center; font-weight: 400; margin-top: 5px;
+        }
+
+        nav.nav-grid {
+            height: 70px; display: grid; grid-template-columns: repeat(4, 1fr);
+            background: #080808; border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .nav-link {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: #666; border: none; background: none; cursor: pointer; transition: 0.3s;
+        }
+
+        .nav-link i { font-size: 22px; margin-bottom: 3px; color: var(--primary); opacity: 0.7; }
+        .nav-link span { font-size: 9px; font-weight: 800; text-transform: uppercase; }
+        .nav-link.active { color: #fff; background: rgba(255,255,255,0.03); }
+        .nav-link.active i { opacity: 1; transform: translateY(-2px); }
+
+        /* ================= :::: CONTENT BLOCKS :::: ================= */
+        .container { padding: 0 20px 140px; max-width: 600px; margin: 0 auto; }
+        .page { display: none; animation: fadeIn 0.6s ease; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .card {
+            background: var(--card-bg); border-radius: var(--radius); padding: 25px;
+            margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative;
+        }
+
+        .welcome-box {
+            background: var(--primary); border-radius: var(--radius); padding: 45px 20px;
+            text-align: center; color: #000; position: relative; overflow: hidden; margin-bottom: 30px;
+        }
+
+        .welcome-box::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://cdn-icons-png.flaticon.com/512/5833/5833871.png');
+            background-size: 180px; background-repeat: no-repeat; background-position: center;
+            opacity: 0.1; pointer-events: none;
+        }
+
+        .welcome-box h2 { font-family: 'Montserrat'; font-size: 28px; }
+        .welcome-box p { font-weight: 800; font-size: 10px; letter-spacing: 4px; }
+
+        .btn-action {
+            width: 100%; padding: 20px; background: var(--primary); color: #000;
+            border: none; border-radius: 15px; font-weight: 900; text-transform: uppercase;
+            cursor: pointer; box-shadow: 0 8px 20px var(--primary-glow); transition: 0.3s;
+        }
+
+        .mk-input {
+            width: 100%; padding: 18px; background: #1a1a1a; border: 2px solid #222;
+            border-radius: 15px; color: #fff; margin-bottom: 20px; font-size: 15px;
+        }
+        .mk-input:focus { border-color: var(--primary); outline: none; }
+
+        /* Theme Grid for Admin */
+        .theme-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+        .theme-btn { 
+            height: 50px; border-radius: 10px; border: 2px solid #333; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900;
+        }
+
+        /* ================= :::: FOOTER :::: ================= */
+        footer { background: #000; padding: 60px 20px; text-align: center; border-top: 1px solid #111; }
+        .f-logo { font-size: 26px; font-weight: 900; color: var(--primary); margin-bottom: 10px; }
+        .f-info { font-size: 12px; color: #444; letter-spacing: 1px; }
+
+        .wa-btn {
+            position: fixed; bottom: 30px; right: 25px; width: 65px; height: 65px;
+            background: #25d366; border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; color: #fff; font-size: 32px; z-index: 1001;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body class="theme-gold">
+
+<header id="mainHeader">
+    <div class="brand-zone">
+        <h1>MK GROUP <span>OF INSTITUTIONS</span></h1>
+    </div>
+    <nav class="nav-grid">
+        <button class="nav-link active" onclick="tab('home', this)"><i class="fa fa-home"></i><span>Home</span></button>
+        <button class="nav-link" onclick="tab('apply', this)"><i class="fa fa-pen-to-square"></i><span>Apply</span></button>
+        <button class="nav-link" onclick="tab('news', this)"><i class="fa fa-broadcast-tower"></i><span>Notice</span></button>
+        <button class="nav-link" onclick="tab('fees', this)"><i class="fa fa-wallet"></i><span>Fees</span></button>
+        <button class="nav-link" onclick="tab('portal', this)"><i class="fa fa-user-lock"></i><span>Portal</span></button>
+        <button class="nav-link" onclick="tab('admin', this)"><i class="fa fa-gear"></i><span>Admin</span></button>
+        <button class="nav-link" onclick="tab('call', this)"><i class="fa fa-phone"></i><span>Call</span></button>
+        <button class="nav-link" onclick="tab('about', this)"><i class="fa fa-info-circle"></i><span>About</span></button>
+    </nav>
+</header>
+
+<main class="container">
+
+    <section id="home" class="page active">
+        <div class="welcome-box">
+            <h2>MK CLASSES</h2>
+            <p>A LEGACY OF DEFENCE SUCCESS</p>
+        </div>
+        <div class="card">
+            <h3 style="color:var(--primary); margin-bottom:15px;">Elite Coaching Center</h3>
+            <p style="color:#aaa; font-size:14px; line-height:1.8;">
+                Specialized training for <b>Sainik School, RMS, RIMC, and Navodaya</b>. Our modern campus in Haryana offers 24/7 mentorship and a disciplined environment to shape the officers of tomorrow.
+            </p>
+        </div>
+        <div class="card" style="border-left: 5px solid var(--primary);">
+            <div style="display:flex; justify-content:space-around; text-align:center;">
+                <div><h2 style="color:var(--primary);">500+</h2><small>Results</small></div>
+                <div><h2 style="color:var(--primary);">15+</h2><small>Years</small></div>
+                <div><h2 style="color:var(--primary);">100%</h2><small>Effort</small></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="apply" class="page">
+        <div class="card">
+            <h3 style="margin-bottom:20px; color:var(--primary);">Admission Enquiry 2026</h3>
+            <input type="text" id="r_n" class="mk-input" placeholder="Student Full Name">
+            <input type="text" id="r_f" class="mk-input" placeholder="Father's Name">
+            <input type="text" id="r_c" class="mk-input" placeholder="Target Class">
+            <input type="number" id="r_p" class="mk-input" placeholder="WhatsApp Contact">
+            <button class="btn-action" onclick="alert('Inquiry Sent!')">Submit Request</button>
+        </div>
+    </section>
+
+    <section id="news" class="page">
+        <div class="card" style="padding:0; overflow:hidden;">
+            <div style="background:var(--primary); color:#000; padding:15px; font-weight:900; text-align:center;">OFFICIAL NOTICE BOARD</div>
+            <div id="news_feed" style="max-height:400px; overflow-y:auto; padding:10px;">
+                <p style="text-align:center; padding:30px; color:#555;">No updates.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="fees" class="page">
+        <div class="card">
+            <h3 style="color:var(--primary); margin-bottom:20px;">Annual Fee Structure</h3>
+            <div style="display:flex; justify-content:space-between; padding:15px 0; border-bottom:1px solid #222;">
+                <span>Classes 1st to 5th</span><b style="color:var(--primary);">₹1,40,000</b>
+            </div>
+            <div style="display:flex; justify-content:space-between; padding:15px 0; border-bottom:1px solid #222;">
+                <span>Classes 6th to 8th</span><b style="color:var(--primary);">₹1,55,000</b>
+            </div>
+            <div style="display:flex; justify-content:space-between; padding:15px 0;">
+                <span>Classes 9th to 12th</span><b style="color:var(--primary);">₹1,70,000</b>
+            </div>
+            <p style="font-size:11px; color:#555; margin-top:20px;">*Note: Fees includes AC Hostel, Meals, and Coaching.</p>
+        </div>
+    </section>
+
+    <section id="portal" class="page">
+        <div class="card" id="c_login">
+            <h3 style="color:var(--primary); margin-bottom:20px;">Cadet Login</h3>
+            <input type="text" id="u_n" class="mk-input" placeholder="Name">
+            <input type="text" id="u_i" class="mk-input" placeholder="Admission ID">
+            <button class="btn-action" onclick="cadetIn()">View Dashboard</button>
+        </div>
+        <div id="c_dash" style="display:none;"></div>
+    </section>
+
+    <section id="admin" class="page">
+        <div class="card" id="a_lock">
+            <h3>Admin Auth</h3>
+            <input type="password" id="a_pin" class="mk-input" style="margin-top:15px;" placeholder="Security PIN">
+            <button class="btn-action" onclick="unlockAdmin()">Unlock Console</button>
+        </div>
+        <div id="a_console" style="display:none;">
+            <div class="card">
+                <h3>Website Theme Settings</h3>
+                <p style="font-size:12px; color:#666;">Choose a premium design for all users:</p>
+                <div class="theme-grid">
+                    <div class="theme-btn" style="background:#FFD700; color:#000;" onclick="setTheme('theme-gold')">GOLD</div>
+                    <div class="theme-btn" style="background:#00d4ff; color:#000;" onclick="setTheme('theme-blue')">SKY</div>
+                    <div class="theme-btn" style="background:#2ecc71; color:#000;" onclick="setTheme('theme-green')">EMERALD</div>
+                    <div class="theme-btn" style="background:#ff4757; color:#000;" onclick="setTheme('theme-red')">CRIMSON</div>
+                    <div class="theme-btn" style="background:#a55eea; color:#000;" onclick="setTheme('theme-purple')">ROYAL</div>
+                    <div class="theme-btn" style="background:#ff7f50; color:#000;" onclick="setTheme('theme-orange')">SUNSET</div>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Post Notice</h3>
+                <textarea id="n_msg" class="mk-input" style="height:80px;" placeholder="Type here..."></textarea>
+                <button class="btn-action" onclick="postN()">Publish</button>
+            </div>
+            <div class="card">
+                <h3>Add Student Record</h3>
+                <input type="text" id="d_n" class="mk-input" placeholder="Name">
+                <input type="text" id="d_i" class="mk-input" placeholder="ID">
+                <input type="number" id="d_p" class="mk-input" placeholder="Paid">
+                <input type="number" id="d_t" class="mk-input" placeholder="Total">
+                <button class="btn-action" onclick="saveS()">Sync Database</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="call" class="page">
+        <div class="card" style="text-align:center;">
+            <h1 style="font-size:40px; color:var(--primary);">8810285636</h1>
+            <p style="margin:20px 0; color:#666;">Official Admission Helpline</p>
+            <a href="tel:8810285636" class="btn-action" style="text-decoration:none; display:block;">Call Now</a>
+        </div>
+    </section>
+
+    <section id="about" class="page">
+        <div class="card">
+            <h3 style="color:var(--primary); margin-bottom:15px;">Official Location</h3>
+            <p style="font-weight:700; font-size:18px;">As khrab college kasni jhajjar haryana</p>
+            <p style="color:#555; margin-top:5px;">Pin Code: 124103, Haryana</p>
+        </div>
+        <div class="card" style="background:linear-gradient(45deg, #111, #000); text-align:center; border: 2px dashed var(--primary);">
+            <div style="font-size:40px; color:var(--primary); margin-bottom:15px;"><i class="fa fa-mobile-screen"></i></div>
+            <h3>MK CLASSES APP</h3>
+            <p style="font-size:12px; color:#555; margin-bottom:20px;">Get attendance & test reports on your phone.</p>
+            <button class="btn-action" style="width:auto; padding:15px 40px;" onclick="alert('Downloading APK...')">INSTALL NOW</button>
+        </div>
+    </section>
+
+    <footer>
+        <div class="f-logo">MK GROUP</div>
+        <p class="f-info">As khrab college kasni jhajjar haryana<br>mkinstitute70@gmail.com</p>
+        <p style="margin-top:30px; font-size:10px; color:#222;">THEME-TITAN V25.0 | 2026</p>
+    </footer>
+
+</main>
+
+<a href="https://wa.me/918810285636" class="wa-btn"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+    const MASTER_PIN = "Mkclasses@1303";
+    let DB_S = JSON.parse(localStorage.getItem('MKT_S')) || [];
+    let DB_N = JSON.parse(localStorage.getItem('MKT_N')) || [];
+
+    // Init Theme
+    window.onload = () => {
+        const savedTheme = localStorage.getItem('MK_THEME') || 'theme-gold';
+        document.body.className = savedTheme;
+        renderN();
+    };
+
+    function tab(id, btn) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Admin Logic
+    function unlockAdmin() {
+        if(document.getElementById('a_pin').value === MASTER_PIN) {
+            document.getElementById('a_lock').style.display = 'none';
+            document.getElementById('a_console').style.display = 'block';
+        } else alert('Wrong PIN');
+    }
+
+    function setTheme(t) {
+        document.body.className = t;
+        localStorage.setItem('MK_THEME', t);
+        alert('Theme Updated for all devices!');
+    }
+
+    function saveS() {
+        const n = document.getElementById('d_n').value, i = document.getElementById('d_i').value.toUpperCase(),
+              p = parseInt(document.getElementById('d_p').value) || 0, t = parseInt(document.getElementById('d_t').value) || 0;
+        DB_S.push({n,i,p,t});
+        localStorage.setItem('MKT_S', JSON.stringify(DB_S));
+        alert('Saved');
+    }
+
+    function postN() {
+        const m = document.getElementById('n_msg').value;
+        DB_N.unshift({m, d: new Date().toLocaleDateString()});
+        localStorage.setItem('MKT_N', JSON.stringify(DB_N));
+        alert('Notice Published');
+        renderN();
+    }
+
+    function renderN() {
+        const f = document.getElementById('news_feed');
+        if(DB_N.length === 0) return;
+        f.innerHTML = DB_N.map(n => `<div style="padding:15px; border-bottom:1px solid #222;"><small style="color:var(--primary);">${n.d}</small><p style="margin-top:5px; font-weight:600;">${n.m}</p></div>`).join('');
+    }
+
+    function cadetIn() {
+        const n = document.getElementById('u_n').value.toLowerCase(), i = document.getElementById('u_i').value.toUpperCase();
+        const s = DB_S.find(x => x.n.toLowerCase() === n && x.i === i);
+        if(s) {
+            document.getElementById('c_login').style.display = 'none';
+            const d = document.getElementById('c_dash'); d.style.display = 'block';
+            d.innerHTML = `<div class="card" style="text-align:center; border:2px solid var(--primary);"><h3>JAI HIND, ${s.n}</h3><div style="display:flex; gap:10px; margin-top:20px;"><div style="flex:1; background:#0a2a1a; padding:15px; border-radius:15px;">PAID<br><b>₹${s.p}</b></div><div style="flex:1; background:#2a0a0a; padding:15px; border-radius:15px;">DUE<br><b>₹${s.t-s.p}</b></div></div><button class="btn-action" style="margin-top:20px; background:#333; color:#fff;" onclick="location.reload()">LOGOUT</button></div>`;
+        } else alert('Not Found');
+    }
+</script>
+
+</body>
+</html>
