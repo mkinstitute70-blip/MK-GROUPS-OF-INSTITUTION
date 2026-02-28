@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MK Group | Titan V30</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Poppins:wght@300;400;600;700;800&family=Oswald:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ================= :::: DYNAMIC THEME ENGINE :::: ================= */
+        :root {
+            --p: #FFD700; --p-glow: rgba(255, 215, 0, 0.3);
+            --bg: #050505; --card: #111111; --h: 175px; --r: 30px;
+        }
+
+        .theme-gold { --p: #FFD700; --p-glow: rgba(255,215,0,0.3); }
+        .theme-blue { --p: #00d4ff; --p-glow: rgba(0,212,255,0.3); }
+        .theme-green { --p: #2ecc71; --p-glow: rgba(46,204,113,0.3); }
+        .theme-red { --p: #ff4757; --p-glow: rgba(255,71,87,0.3); }
+        .theme-purple { --p: #a55eea; --p-glow: rgba(165,94,234,0.3); }
+        .theme-orange { --p: #ff7f50; --p-glow: rgba(255,127,80,0.3); }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
+        
+        body { background-color: var(--bg); color: #fff; padding-top: calc(var(--h) + 40px); transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); overflow-x: hidden; }
+
+        /* ================= :::: GRAND HEADER :::: ================= */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; height: var(--h);
+            background: #000; z-index: 2000; border-bottom: 5px solid var(--p);
+            display: flex; flex-direction: column; box-shadow: 0 15px 50px rgba(0,0,0,0.9);
+        }
+
+        .brand-box {
+            flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+        }
+
+        .brand-box h1 {
+            font-family: 'Montserrat', sans-serif; font-size: 28px; letter-spacing: 2px;
+            color: #fff; text-transform: uppercase; text-shadow: 0 0 20px var(--p-glow);
+        }
+
+        .brand-box h1 span {
+            display: block; font-size: 11px; letter-spacing: 8px; color: var(--p);
+            text-align: center; font-weight: 300; margin-top: 6px;
+        }
+
+        nav.nav-bar {
+            height: 75px; display: grid; grid-template-columns: repeat(4, 1fr);
+            background: #080808; border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .nav-btn {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: #555; border: none; background: none; cursor: pointer; transition: 0.4s;
+        }
+
+        .nav-btn i { font-size: 24px; margin-bottom: 4px; color: var(--p); opacity: 0.6; }
+        .nav-btn span { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-btn.active { color: #fff; background: rgba(255,255,255,0.03); border-top: 3px solid var(--p); }
+        .nav-btn.active i { opacity: 1; transform: scale(1.1); }
+
+        /* ================= :::: CONTENT WRAPPER :::: ================= */
+        .stage { padding: 0 20px 150px; max-width: 600px; margin: 0 auto; }
+        .view { display: none; animation: slideUp 0.7s cubic-bezier(0.19, 1, 0.22, 1); }
+        .view.active { display: block; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+        .titan-card {
+            background: var(--card); border-radius: var(--r); padding: 30px;
+            margin-bottom: 35px; border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4); position: relative;
+        }
+
+        .welcome-hero {
+            background: var(--p); border-radius: var(--r); padding: 55px 25px;
+            text-align: center; color: #000; position: relative; overflow: hidden; margin-bottom: 40px;
+        }
+
+        .welcome-hero::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://cdn-icons-png.flaticon.com/512/5833/5833871.png');
+            background-size: 220px; background-repeat: no-repeat; background-position: center;
+            opacity: 0.12; pointer-events: none;
+        }
+
+        .welcome-hero h2 { font-family: 'Montserrat'; font-size: 32px; font-weight: 900; }
+        .welcome-hero p { font-weight: 800; font-size: 11px; letter-spacing: 6px; margin-top: 8px; }
+
+        /* CAMPUS GALLERY CSS */
+        .campus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .campus-img { 
+            width: 100%; height: 120px; border-radius: 15px; object-fit: cover; 
+            border: 2px solid rgba(255,255,255,0.1); transition: 0.3s;
+        }
+        .campus-img:hover { transform: scale(1.05); border-color: var(--p); }
+
+        /* FORM SYSTEM */
+        .mk-field { margin-bottom: 25px; }
+        .mk-field label { display: block; font-size: 10px; font-weight: 800; color: var(--p); margin-bottom: 10px; text-transform: uppercase; }
+        .mk-input {
+            width: 100%; padding: 20px; background: #1a1a1a; border: 2px solid #222;
+            border-radius: 18px; color: #fff; font-size: 16px; transition: 0.3s;
+        }
+        .mk-input:focus { border-color: var(--p); background: #000; outline: none; }
+
+        .btn-titan {
+            width: 100%; padding: 22px; background: var(--p); color: #000;
+            border: none; border-radius: 18px; font-weight: 900; text-transform: uppercase;
+            cursor: pointer; letter-spacing: 2px; box-shadow: 0 10px 30px var(--p-glow);
+        }
+
+        /* ================= :::: ABOUT & INSTALL :::: ================= */
+        .install-box {
+            background: linear-gradient(145deg, #111, #000); text-align: center;
+            border: 2px dashed var(--p); padding: 40px 20px; border-radius: var(--r); margin-top: 30px;
+        }
+        .install-icon-wrap {
+            width: 90px; height: 90px; background: var(--p); border-radius: 25px;
+            margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;
+            font-size: 45px; color: #000; box-shadow: 0 0 40px var(--p-glow);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+        /* FOOTER */
+        footer { background: #000; padding: 70px 20px; text-align: center; border-top: 1px solid #111; }
+        .f-logo { font-size: 30px; font-weight: 900; color: var(--p); margin-bottom: 12px; }
+
+        .wa-float {
+            position: fixed; bottom: 35px; right: 25px; width: 70px; height: 70px;
+            background: #25d366; border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; color: #fff; font-size: 38px; z-index: 1001;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+        }
+    </style>
+</head>
+<body class="theme-gold">
+
+<header>
+    <div class="brand-box">
+        <h1>MK GROUP <span>OF INSTITUTIONS</span></h1>
+    </div>
+    <nav class="nav-bar">
+        <button class="nav-btn active" onclick="tab('home', this)"><i class="fa fa-th-large"></i><span>Home</span></button>
+        <button class="nav-btn" onclick="tab('apply', this)"><i class="fa fa-user-plus"></i><span>Apply</span></button>
+        <button class="nav-btn" onclick="tab('news', this)"><i class="fa fa-bell"></i><span>Notice</span></button>
+        <button class="nav-btn" onclick="tab('fees', this)"><i class="fa fa-credit-card"></i><span>Fees</span></button>
+        <button class="nav-btn" onclick="tab('portal', this)"><i class="fa fa-fingerprint"></i><span>Portal</span></button>
+        <button class="nav-btn" onclick="tab('admin', this)"><i class="fa fa-unlock-keyhole"></i><span>Admin</span></button>
+        <button class="nav-btn" onclick="tab('call', this)"><i class="fa fa-phone-volume"></i><span>Call</span></button>
+        <button class="nav-btn" onclick="tab('about', this)"><i class="fa fa-shield-halved"></i><span>About</span></button>
+    </nav>
+</header>
+
+<main class="stage">
+
+    <section id="home" class="view active">
+        <div class="welcome-hero">
+            <h2>MK CLASSES</h2>
+            <p>ESTABLISHED FOR VICTORY</p>
+        </div>
+
+        <div class="titan-card">
+            <h3 style="color:var(--p); margin-bottom:15px;"><i class="fa fa-camera-retro"></i> Campus Life</h3>
+            <p style="font-size:13px; color:#888; margin-bottom:15px;">Explore our world-class infrastructure and training grounds.</p>
+            <div id="campus_gallery" class="campus-grid">
+                <img src="https://images.unsplash.com/photo-1541339907198-e08759dfc3ef?auto=format&fit=crop&w=300" class="campus-img">
+                <img src="https://images.unsplash.com/photo-1523050853063-8805af9e59a5?auto=format&fit=crop&w=300" class="campus-img">
+            </div>
+        </div>
+
+        <div class="titan-card">
+            <h3 style="color:var(--p); margin-bottom:10px;">Our Specialization</h3>
+            <p style="font-size:14px; color:#aaa; line-height:1.8;">
+                We are India's leading residential academy for <b>Sainik School, RIMC, and RMS</b> preparation. With a success rate of over 85%, we ensure your child's future in the Armed Forces.
+            </p>
+        </div>
+    </section>
+
+    <section id="apply" class="view">
+        <div class="titan-card">
+            <h3 style="margin-bottom:25px; color:var(--p);">Admission Registration 2026</h3>
+            <div class="mk-field"><label>Candidate Name</label><input type="text" id="r_n" class="mk-input" placeholder="Full Name"></div>
+            <div class="mk-field"><label>Father's Name</label><input type="text" id="r_f" class="mk-input" placeholder="Father's Name"></div>
+            <div class="mk-field"><label>Target Class</label><input type="text" id="r_c" class="mk-input" placeholder="e.g. 6th / 9th"></div>
+            <div class="mk-field"><label>WhatsApp Contact</label><input type="number" id="r_p" class="mk-input" placeholder="Phone Number"></div>
+            <button class="btn-titan" onclick="alert('Enquiry Submitted Successfully!')">Register Now</button>
+        </div>
+    </section>
+
+    <section id="news" class="view">
+        <div class="titan-card" style="padding:0; overflow:hidden; border:2px solid var(--p);">
+            <div style="background:var(--p); color:#000; padding:20px; font-weight:900; text-align:center; font-family:'Oswald';">COMMAND CENTER BROADCAST</div>
+            <div id="news_list" style="max-height:450px; overflow-y:auto;">
+                <p style="text-align:center; padding:50px; color:#444;">No new orders.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="fees" class="view">
+        <div class="titan-card">
+            <h3 style="color:var(--p); margin-bottom:20px;">Fee Structure (Annual)</h3>
+            <div style="display:flex; justify-content:space-between; padding:18px 0; border-bottom:1px solid #222;">
+                <span>1st to 5th Standard</span><b style="color:var(--p);">₹1,40,000</b>
+            </div>
+            <div style="display:flex; justify-content:space-between; padding:18px 0; border-bottom:1px solid #222;">
+                <span>6th to 8th Standard</span><b style="color:var(--p);">₹1,55,000</b>
+            </div>
+            <div style="display:flex; justify-content:space-between; padding:18px 0;">
+                <span>9th to 12th Standard</span><b style="color:var(--p);">₹1,70,000</b>
+            </div>
+            <p style="font-size:11px; color:#555; margin-top:25px;">*Note: Fees includes AC Lodging, Nutritious Meals, and Uniforms.</p>
+        </div>
+    </section>
+
+    <section id="portal" class="view">
+        <div class="titan-card" id="p_login">
+            <h3 style="color:var(--p); margin-bottom:25px;">Cadet Login</h3>
+            <input type="text" id="u_n" class="mk-input" placeholder="Registered Name" style="margin-bottom:15px;">
+            <input type="text" id="u_i" class="mk-input" placeholder="Admission ID">
+            <button class="btn-titan" style="margin-top:20px;" onclick="cadetLogin()">Enter Dashboard</button>
+        </div>
+        <div id="p_dash" style="display:none;"></div>
+    </section>
+
+    <section id="admin" class="view">
+        <div class="titan-card" id="a_lock">
+            <h3>Staff Authentication</h3>
+            <input type="password" id="a_pin" class="mk-input" style="margin-top:20px;" placeholder="Security PIN">
+            <button class="btn-titan" style="margin-top:15px;" onclick="unlockAdmin()">Access Console</button>
+        </div>
+        
+        <div id="a_panel" style="display:none;">
+            <div class="titan-card">
+                <h3>Theme Settings</h3>
+                <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:15px;">
+                    <button onclick="setTheme('theme-gold')" style="background:#FFD700; height:40px; border-radius:10px; border:none;"></button>
+                    <button onclick="setTheme('theme-blue')" style="background:#00d4ff; height:40px; border-radius:10px; border:none;"></button>
+                    <button onclick="setTheme('theme-green')" style="background:#2ecc71; height:40px; border-radius:10px; border:none;"></button>
+                    <button onclick="setTheme('theme-red')" style="background:#ff4757; height:40px; border-radius:10px; border:none;"></button>
+                    <button onclick="setTheme('theme-purple')" style="background:#a55eea; height:40px; border-radius:10px; border:none;"></button>
+                    <button onclick="setTheme('theme-orange')" style="background:#ff7f50; height:40px; border-radius:10px; border:none;"></button>
+                </div>
+            </div>
+
+            <div class="titan-card">
+                <h3>Upload Campus Photo</h3>
+                <input type="text" id="img_url" class="mk-input" style="margin-top:15px;" placeholder="Paste Image URL here...">
+                <button class="btn-titan" style="margin-top:10px;" onclick="addPhoto()">Add to Gallery</button>
+            </div>
+
+            <div class="titan-card">
+                <h3>Post Notice</h3>
+                <textarea id="n_msg" class="mk-input" style="height:100px; margin-top:10px;" placeholder="Broadcast Message..."></textarea>
+                <button class="btn-titan" onclick="postNotice()">Publish</button>
+            </div>
+
+            <div class="titan-card">
+                <h3>Student Database</h3>
+                <input type="text" id="db_n" class="mk-input" placeholder="Name">
+                <input type="text" id="db_i" class="mk-input" placeholder="MK-ID">
+                <input type="number" id="db_p" class="mk-input" placeholder="Paid">
+                <input type="number" id="db_t" class="mk-input" placeholder="Total">
+                <button class="btn-titan" onclick="saveStudent()">Sync Record</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="call" class="view">
+        <div class="titan-card" style="text-align:center;">
+            <h1 style="font-size:45px; color:var(--p); margin-bottom:10px;">8810285636</h1>
+            <p style="color:#666; margin-bottom:30px;">Direct Admission Helpline (24/7)</p>
+            <a href="tel:8810285636" class="btn-titan" style="text-decoration:none; display:block;">Call Now</a>
+        </div>
+    </section>
+
+    <section id="about" class="view">
+        <div class="titan-card">
+            <h3 style="color:var(--p); margin-bottom:15px;"><i class="fa fa-map-marker-alt"></i> Official Location</h3>
+            <p style="font-weight:800; font-size:18px;">As khrab college kasni jhajjar haryana</p>
+            <p style="color:#555; margin-top:5px;">Pin: 124103, Haryana, India</p>
+        </div>
+
+        <div class="install-box">
+            <div class="install-icon-wrap">
+                <i class="fa fa-mobile-screen-button"></i>
+            </div>
+            <h3>MK CLASSES MOBILE</h3>
+            <p style="font-size:12px; color:#555; margin: 15px 0 25px;">Download our official application for live classes and results.</p>
+            <button class="btn-titan" style="width:auto; padding: 15px 45px;" onclick="alert('MK-App-V30.apk is downloading...')">INSTALL APP</button>
+        </div>
+    </section>
+
+    <footer>
+        <div class="f-logo">MK GROUP</div>
+        <p style="color:#444; font-size:12px; line-height:1.6;">As khrab college kasni jhajjar haryana<br>Email: mkinstitute70@gmail.com</p>
+        <p style="margin-top:40px; font-size:9px; color:#222; letter-spacing:5px;">TITAN-CORE V30.0 | OFFICIAL 2026</p>
+    </footer>
+
+</main>
+
+<a href="https://wa.me/918810285636" class="wa-float"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+    const MASTER_KEY = "Mkclasses@1303";
+    let STUDENTS = JSON.parse(localStorage.getItem('MKT30_S')) || [];
+    let NOTICES = JSON.parse(localStorage.getItem('MKT30_N')) || [];
+    let PHOTOS = JSON.parse(localStorage.getItem('MKT30_P')) || [];
+
+    window.onload = () => {
+        const t = localStorage.getItem('MKT30_T') || 'theme-gold';
+        document.body.className = t;
+        renderNotices();
+        renderPhotos();
+    };
+
+    function tab(id, btn) {
+        document.querySelectorAll('.view').forEach(p => p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function setTheme(t) {
+        document.body.className = t;
+        localStorage.setItem('MKT30_T', t);
+        alert("Theme updated globally!");
+    }
+
+    // ADMIN PHOTO UPLOAD SYSTEM
+    function addPhoto() {
+        const url = document.getElementById('img_url').value;
+        if(!url) return alert("Please paste a valid Image URL!");
+        PHOTOS.push(url);
+        localStorage.setItem('MKT30_P', JSON.stringify(PHOTOS));
+        document.getElementById('img_url').value = "";
+        alert("Photo added to Campus Gallery!");
+        renderPhotos();
+    }
+
+    function renderPhotos() {
+        const gal = document.getElementById('campus_gallery');
+        if(PHOTOS.length === 0) return;
+        // Default photos + Admin photos
+        let html = `
+            <img src="https://images.unsplash.com/photo-1541339907198-e08759dfc3ef?auto=format&fit=crop&w=300" class="campus-img">
+            <img src="https://images.unsplash.com/photo-1523050853063-8805af9e59a5?auto=format&fit=crop&w=300" class="campus-img">
+        `;
+        PHOTOS.forEach(p => {
+            html += `<img src="${p}" class="campus-img" onerror="this.style.display='none'">`;
+        });
+        gal.innerHTML = html;
+    }
+
+    function unlockAdmin() {
+        if(document.getElementById('a_pin').value === MASTER_KEY) {
+            document.getElementById('a_lock').style.display = 'none';
+            document.getElementById('a_panel').style.display = 'block';
+        } else alert("Invalid Access PIN!");
+    }
+
+    function saveStudent() {
+        const n = document.getElementById('db_n').value, i = document.getElementById('db_i').value.toUpperCase(),
+              p = parseInt(document.getElementById('db_p').value) || 0, t = parseInt(document.getElementById('db_t').value) || 0;
+        STUDENTS.push({n,i,p,t});
+        localStorage.setItem('MKT30_S', JSON.stringify(STUDENTS));
+        alert("Cadet record synchronized.");
+    }
+
+    function postNotice() {
+        const m = document.getElementById('n_msg').value;
+        NOTICES.unshift({m, d: new Date().toLocaleDateString()});
+        localStorage.setItem('MKT30_N', JSON.stringify(NOTICES));
+        alert("Broadcast published.");
+        renderNotices();
+    }
+
+    function renderNotices() {
+        const list = document.getElementById('news_list');
+        if(NOTICES.length === 0) return;
+        list.innerHTML = NOTICES.map(n => `<div style="padding:20px; border-bottom:1px solid #222;"><small style="color:var(--p); font-weight:900;">${n.d}</small><p style="margin-top:8px; font-weight:600; color:#eee;">${n.m}</p></div>`).join('');
+    }
+
+    function cadetLogin() {
+        const n = document.getElementById('u_n').value.toLowerCase(), i = document.getElementById('u_i').value.toUpperCase();
+        const s = STUDENTS.find(x => x.n.toLowerCase() === n && x.i === i);
+        if(s) {
+            document.getElementById('p_login').style.display = 'none';
+            const d = document.getElementById('p_dash'); d.style.display = 'block';
+            d.innerHTML = `
+                <div class="titan-card" style="text-align:center; border:2px solid var(--p);">
+                    <h3>JAI HIND, ${s.n}</h3>
+                    <div style="display:flex; gap:15px; margin-top:25px;">
+                        <div style="flex:1; background:#0a2a1a; padding:20px; border-radius:20px;">
+                            <span style="font-size:10px; color:#4ade80;">PAID</span><br><b style="font-size:18px;">₹${s.p}</b>
+                        </div>
+                        <div style="flex:1; background:#2a0a0a; padding:20px; border-radius:20px;">
+                            <span style="font-size:10px; color:#f87171;">DUE</span><br><b style="font-size:18px;">₹${s.t-s.p}</b>
+                        </div>
+                    </div>
+                    <button class="btn-titan" style="margin-top:25px; background:#333; color:#fff;" onclick="location.reload()">LOGOUT</button>
+                </div>
+            `;
+        } else alert("Invalid Cadet Credentials!");
+    }
+</script>
+
+</body>
+</html>
