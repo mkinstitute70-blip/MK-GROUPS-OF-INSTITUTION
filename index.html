@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MK GROUP OF INSTITUTIONS | OFFICIAL SYSTEM</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           1. CORE SYSTEM VARIABLES & THEMES
+           ========================================= 
+        */
+        :root {
+            --p: #2ECC71;           
+            --orange: #FF8C00;      
+            --bg: #FFFFFF;          
+            --card: #F9FBFC;        
+            --dark: #0F172A;        
+            --text-main: #1E293B; 
+            --text-sub: #64748B;
+            --header-h: 160px;
+            --radius: 22px;
+            --shadow: 0 15px 35px rgba(0,0,0,0.08);
+        }
+
+        /* ADMIN THEME OVERRIDES */
+        body.dark-mode { --bg: #000; --card: #111; --text-main: #fff; --text-sub: #94A3B8; --dark: #000; }
+        body.gold-mode { --p: #D4AF37; --orange: #B8860B; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        
+        body { 
+            background-color: var(--bg); 
+            color: var(--text-main); 
+            padding-top: calc(var(--header-h) + 15px); 
+            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-x: hidden;
+        }
+
+        /* HEADER ARCHITECTURE */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; height: var(--header-h);
+            background: var(--dark); z-index: 10000; 
+            display: flex; flex-direction: column;
+            border-bottom: 4px solid var(--p);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .brand-zone { flex: 1; display: flex; align-items: center; justify-content: center; }
+        .brand-zone h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(14px, 5.5vw, 24px);
+            color: var(--p); text-transform: uppercase; font-weight: 900; letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(46, 204, 113, 0.3);
+        }
+
+        nav.nav-grid {
+            height: 85px; display: grid; grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 1fr); background: #000;
+        }
+
+        .n-btn {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: #666; border: none; background: none; cursor: pointer; transition: 0.3s;
+        }
+
+        .n-btn i { font-size: 18px; margin-bottom: 2px; color: var(--p); transition: 0.3s; }
+        .n-btn span { font-size: 8px; font-weight: 800; text-transform: uppercase; }
+        .n-btn.active { background: rgba(46, 204, 113, 0.15); color: #fff; }
+        .n-btn.active i { transform: scale(1.2); }
+
+        .container { padding: 15px; max-width: 800px; margin: 0 auto; padding-bottom: 120px; }
+        .view { display: none; }
+        .view.active { display: block; animation: slideUp 0.6s ease; }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        .mk-card {
+            background: var(--card); border-radius: var(--radius); padding: 25px;
+            margin-bottom: 25px; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.03);
+            position: relative; overflow: hidden;
+        }
+
+        .mk-card h3 { font-size: 18px; font-weight: 800; margin-bottom: 18px; color: var(--p); text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
+
+        /* HERO & HIGHLIGHTS */
+        .hero-box {
+            width: 100%; height: 200px; border-radius: var(--radius);
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(15,23,42,0.9)), 
+                        url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1000');
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: #fff; margin-bottom: 25px; border: 2px solid var(--p);
+        }
+
+        .hero-box h2 { font-size: 24px; font-weight: 900; letter-spacing: 1px; }
+        .hero-box p { color: var(--p); font-weight: 800; font-size: 10px; letter-spacing: 3px; margin-top: 5px; }
+
+        .highlight-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px; }
+        .h-item { 
+            background: var(--dark); padding: 20px; border-radius: 18px; text-align: center;
+            border: 1px solid var(--p); box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        .h-item i { color: var(--p); font-size: 24px; margin-bottom: 8px; }
+        .h-item b { display: block; color: #fff; font-size: 11px; font-weight: 900; text-transform: uppercase; }
+
+        /* HALL OF FAME ROW */
+        .res-strip {
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--bg); padding: 18px; border-radius: 15px; margin-bottom: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.04); border-right: 4px solid var(--p);
+        }
+        .res-strip .name { color: var(--orange); font-weight: 900; font-size: 16px; text-transform: uppercase; }
+        .res-strip .rank { font-weight: 800; font-size: 12px; opacity: 0.8; }
+
+        /* ROUTINE TABLE */
+        .routine-list { width: 100%; border-collapse: separate; border-spacing: 0 10px; }
+        .r-row { background: var(--bg); box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        .r-row td { padding: 15px; font-weight: 700; font-size: 13px; }
+        .r-row td:first-child { color: var(--p); border-radius: 12px 0 0 12px; border-left: 4px solid var(--p); width: 110px; }
+        .r-row td:last-child { border-radius: 0 12px 12px 0; }
+
+        /* INPUTS & BUTTONS */
+        .mk-input { 
+            width: 100%; padding: 18px; background: #fff; border: 2px solid #F1F5F9; 
+            border-radius: 16px; margin-bottom: 15px; font-weight: 700; color: #333; transition: 0.3s;
+        }
+        body.dark-mode .mk-input { background: #000; border-color: #222; color: #fff; }
+        .mk-input:focus { border-color: var(--p); outline: none; }
+        
+        .big-btn { 
+            width: 100%; padding: 20px; background: var(--p); color: #000; 
+            border: none; border-radius: 16px; font-weight: 900; text-transform: uppercase; cursor: pointer;
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.2);
+        }
+
+        footer { text-align: center; padding: 60px 20px; background: #000; color: #444; font-size: 10px; }
+        footer b { color: var(--p); font-size: 14px; }
+
+    </style>
+</head>
+<body id="master_body">
+
+<header>
+    <div class="brand-zone">
+        <h1>MK GROUP OF INSTITUTIONS</h1>
+    </div>
+    <nav class="nav-grid">
+        <button class="n-btn active" onclick="nav('home', this)"><i class="fa fa-home"></i><span>Home</span></button>
+        <button class="n-btn" onclick="nav('admission', this)"><i class="fa fa-user-plus"></i><span>Apply</span></button>
+        <button class="n-btn" onclick="nav('academics', this)"><i class="fa fa-graduation-cap"></i><span>Acad/Fees</span></button>
+        <button class="n-btn" onclick="nav('routine', this)"><i class="fa fa-history"></i><span>Routine</span></button>
+        <button class="n-btn" onclick="nav('campus', this)"><i class="fa fa-camera-retro"></i><span>Campus</span></button>
+        <button class="n-btn" onclick="nav('notice_view', this)"><i class="fa fa-broadcast-tower"></i><span>Notice</span></button>
+        <button class="n-btn" onclick="nav('portal', this)"><i class="fa fa-fingerprint"></i><span>Portal</span></button>
+        <button class="n-btn" onclick="nav('admin', this)"><i class="fa fa-key"></i><span>Admin</span></button>
+    </nav>
+</header>
+
+<main class="container">
+
+    <section id="home" class="view active">
+        <div class="hero-box">
+            <h2>Welcome to MK Classes</h2>
+            <p>AS KHRAB COLLEGE KASNI JHAJJAR</p>
+            <div style="font-size:9px; background:var(--p); color:#000; padding:4px 12px; border-radius:50px; margin-top:10px; font-weight:900;">BOYS & GIRLS HOSTEL AVAILABLE</div>
+        </div>
+
+        <div class="highlight-wrap">
+            <div class="h-item"><i class="fa fa-shield"></i><b>Sainik School</b></div>
+            <div class="h-item"><i class="fa fa-medal"></i><b>RMS / RIMC</b></div>
+            <div class="h-item"><i class="fa fa-star"></i><b>Military Prep</b></div>
+            <div class="h-item"><i class="fa fa-landmark"></i><b>Gurukul</b></div>
+        </div>
+        
+        <div class="mk-card">
+            <h3><i class="fa fa-award" style="color:var(--orange)"></i> Hall of Fame 2026</h3>
+            <div id="res_wall"><p style="font-size:12px; opacity:0.6; text-align:center;">Syncing Selection List...</p></div>
+        </div>
+    </section>
+
+    <section id="admission" class="view">
+        <div class="mk-card">
+            <h3>Online Registration</h3>
+            <input type="text" class="mk-input" placeholder="Cadet's Name">
+            <input type="text" class="mk-input" placeholder="Father's Name">
+            <input type="text" class="mk-input" placeholder="Class for Admission">
+            <input type="number" class="mk-input" placeholder="Contact WhatsApp Number">
+            <button class="big-btn">Submit Application</button>
+        </div>
+    </section>
+
+    <section id="academics" class="view">
+        <div class="mk-card">
+            <h3>Academic Excellence Upgrade</h3>
+            <div style="font-size:13px; font-weight:600; line-height:2.2;">
+                <p><i class="fa fa-check-circle" style="color:var(--p)"></i> Advanced Sainik School OMR Curriculum</p>
+                <p><i class="fa fa-check-circle" style="color:var(--p)"></i> Daily Mock Testing & Instant Analytics</p>
+                <p><i class="fa fa-check-circle" style="color:var(--p)"></i> Specialized Interview & Personality Prep</p>
+                <p><i class="fa fa-check-circle" style="color:var(--p)"></i> Doubt-Free Learning (24/7 Expert Support)</p>
+            </div>
+        </div>
+        <div class="mk-card">
+            <h3>Yearly Fee Ledger</h3>
+            <div style="display:flex; justify-content:space-between; padding:15px 0; border-bottom:1px solid rgba(0,0,0,0.05);"><span>Junior Wing</span><b>₹1,40,000</b></div>
+            <div style="display:flex; justify-content:space-between; padding:15px 0; border-bottom:1px solid rgba(0,0,0,0.05);"><span>Middle Wing</span><b>₹1,55,000</b></div>
+            <div style="display:flex; justify-content:space-between; padding:15px 0;"><span>Senior Wing</span><b>₹1,75,000</b></div>
+        </div>
+    </section>
+
+    <section id="routine" class="view">
+        <div class="mk-card">
+            <h3>Military Daily Routine</h3>
+            <table class="routine-list">
+                <tr class="r-row"><td>05:00 AM</td><td>Wake Up Call & PT Prep</td></tr>
+                <tr class="r-row"><td>05:30 AM</td><td>Physical Drill / Ground Work</td></tr>
+                <tr class="r-row"><td>07:30 AM</td><td>Breakfast & Dressing</td></tr>
+                <tr class="r-row"><td>08:30 AM</td><td>Class Session - Phase I</td></tr>
+                <tr class="r-row"><td>01:30 PM</td><td>Mess Timing (Lunch)</td></tr>
+                <tr class="r-row"><td>02:30 PM</td><td>Rest & Recuperation</td></tr>
+                <tr class="r-row"><td>04:00 PM</td><td>Class Session - Phase II</td></tr>
+                <tr class="r-row"><td>06:30 PM</td><td>Evening Games / Sports</td></tr>
+                <tr class="r-row"><td>08:00 PM</td><td>Mess Timing (Dinner)</td></tr>
+                <tr class="r-row"><td>09:00 PM</td><td>Self Study / Doubt Class</td></tr>
+                <tr class="r-row"><td>10:30 PM</td><td>Lights Out (Rest)</td></tr>
+            </table>
+        </div>
+    </section>
+
+    <section id="campus" class="view">
+        <div class="mk-card">
+            <h3>Campus Media</h3>
+            <div id="g_wall" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <img src="https://images.unsplash.com/photo-1541339907198-e08759dfc3ef?w=400" style="width:100%; height:130px; border-radius:15px; object-fit:cover;">
+            </div>
+        </div>
+    </section>
+
+    <section id="notice_view" class="view">
+        <div class="mk-card">
+            <h3>Digital Notice Board</h3>
+            <div id="not_wall" style="font-size:13px; color:var(--text-sub);">Connecting to Server...</div>
+        </div>
+    </section>
+
+    <section id="portal" class="view">
+        <div class="mk-card" id="p_gate">
+            <h3>Cadet Dashboard</h3>
+            <input id="un" class="mk-input" placeholder="Enter Full Name">
+            <input id="ui" class="mk-input" placeholder="Cadet ID (MK-XXX)">
+            <button class="big-btn" onclick="portalAuth()">Login to Profile</button>
+        </div>
+        <div id="p_dash" style="display:none;"></div>
+    </section>
+
+    <section id="admin" class="view">
+        <div class="mk-card" id="a_gate">
+            <h3>System Authorization</h3>
+            <input type="password" id="pin" class="mk-input" style="text-align:center; letter-spacing:8px;" placeholder="••••">
+            <button class="big-btn" onclick="adminAuth()">Unlock System</button>
+        </div>
+
+        <div id="a_console" style="display:none;">
+            <div class="mk-card" style="background:var(--dark); color:#fff;">
+                <h3><i class="fa fa-palette"></i> Power 1: System Theme</h3>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px;">
+                    <button class="big-btn" style="padding:10px; background:#fff; color:#000;" onclick="applyTheme('LIGHT')">Light Mode</button>
+                    <button class="big-btn" style="padding:10px; background:#111; color:#fff;" onclick="applyTheme('DARK')">Dark Mode</button>
+                    <button class="big-btn" style="padding:10px; background:#2ECC71; color:#000;" onclick="applyTheme('EMERALD')">Emerald</button>
+                    <button class="big-btn" style="padding:10px; background:#D4AF37; color:#000;" onclick="applyTheme('GOLD')">Elite Gold</button>
+                </div>
+            </div>
+
+            <div class="mk-card">
+                <h3><i class="fa fa-trophy"></i> Power 2: Hall of Fame</h3>
+                <input id="rn" class="mk-input" placeholder="Student Name">
+                <input id="rr" class="mk-input" placeholder="Selection (e.g. Sainik School)">
+                <button class="big-btn" onclick="saveResult()">Push Result</button>
+            </div>
+
+            <div class="mk-card">
+                <h3><i class="fa fa-image"></i> Power 3: Campus Gallery</h3>
+                <input id="adm_img" class="mk-input" placeholder="Image URL">
+                <button class="big-btn" onclick="saveGallery()">Add Photo</button>
+            </div>
+
+            <div class="mk-card">
+                <h3><i class="fa fa-dollar-sign"></i> Power 4: Fee Sync</h3>
+                <input id="sn" class="mk-input" placeholder="Name">
+                <input id="si" class="mk-input" placeholder="ID (MK-XXX)">
+                <input id="sp" class="mk-input" placeholder="Paid Amount">
+                <input id="st" class="mk-input" placeholder="Total Package">
+                <button class="big-btn" onclick="saveStudent()">Sync Records</button>
+            </div>
+
+            <div class="mk-card">
+                <h3><i class="fa fa-bullhorn"></i> Power 5: Announcement</h3>
+                <textarea id="adm_not" class="mk-input" style="height:80px;" placeholder="Message..."></textarea>
+                <button class="big-btn" onclick="saveNotice()">Broadcasting Notice</button>
+            </div>
+
+            <button class="big-btn" style="background:#e74c3c; color:#fff; margin-top:20px;" onclick="location.reload()">System Exit</button>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <b>MK GROUP OF INSTITUTIONS</b><br>
+    Defence Preparatory Academy | 2026<br>
+    <small style="opacity:0.3; margin-top:15px; display:block;">SYSTEM V8.0 | CORE-DEPTH: 950+ ROWS</small>
+</footer>
+
+<script>
+    /* =========================================
+       MASTER JAVASCRIPT ARCHITECTURE
+       ========================================= 
+    */
+    const MASTER_PIN = "Mkclasses@1303";
+    let DATA_S = JSON.parse(localStorage.getItem('MK_S')) || [];
+    let DATA_R = JSON.parse(localStorage.getItem('MK_R')) || [];
+    let DATA_G = JSON.parse(localStorage.getItem('MK_G')) || [];
+    let DATA_N = JSON.parse(localStorage.getItem('MK_N')) || [];
+
+    window.onload = function() {
+        renderResults();
+        renderGallery();
+        renderNotices();
+        loadSavedTheme();
+    };
+
+    function nav(id, btn) {
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.querySelectorAll('.n-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    function adminAuth() {
+        if(document.getElementById('pin').value === MASTER_PIN) {
+            document.getElementById('a_gate').style.display = 'none';
+            document.getElementById('a_console').style.display = 'block';
+        } else alert("AUTHORIZATION FAILED!");
+    }
+
+    /* THEME POWER */
+    function applyTheme(t) {
+        const body = document.getElementById('master_body');
+        body.classList.remove('dark-mode', 'gold-mode');
+        if(t === 'DARK') body.classList.add('dark-mode');
+        if(t === 'GOLD') body.classList.add('gold-mode');
+        localStorage.setItem('MK_SYSTEM_THEME', t);
+        alert("Theme Updated to " + t);
+    }
+
+    function loadSavedTheme() {
+        const t = localStorage.getItem('MK_SYSTEM_THEME');
+        if(t) applyTheme(t);
+    }
+
+    /* DATA SAVING CORE */
+    function saveResult() {
+        let name = document.getElementById('rn').value, rank = document.getElementById('rr').value;
+        if(!name || !rank) return;
+        DATA_R.unshift({name, rank});
+        localStorage.setItem('MK_R', JSON.stringify(DATA_R));
+        renderResults(); alert("HALL OF FAME UPDATED!");
+        document.getElementById('rn').value = ""; document.getElementById('rr').value = "";
+    }
+
+    function saveGallery() {
+        let url = document.getElementById('adm_img').value;
+        if(!url) return;
+        DATA_G.unshift(url);
+        localStorage.setItem('MK_G', JSON.stringify(DATA_G));
+        renderGallery(); alert("GALLERY MEDIA ADDED!");
+        document.getElementById('adm_img').value = "";
+    }
+
+    function saveStudent() {
+        let n = document.getElementById('sn').value, i = document.getElementById('si').value.toUpperCase(),
+            p = document.getElementById('sp').value, t = document.getElementById('st').value;
+        if(!n || !i) return;
+        let idx = DATA_S.findIndex(x => x.i === i);
+        if(idx > -1) DATA_S[idx] = {n, i, p, t}; else DATA_S.push({n, i, p, t});
+        localStorage.setItem('MK_S', JSON.stringify(DATA_S));
+        alert("LEDGER SYNCED!");
+        ['sn','si','sp','st'].forEach(k => document.getElementById(k).value = "");
+    }
+
+    function saveNotice() {
+        let msg = document.getElementById('adm_not').value;
+        if(!msg) return;
+        DATA_N.unshift({msg, date: new Date().toLocaleDateString()});
+        localStorage.setItem('MK_N', JSON.stringify(DATA_N));
+        renderNotices(); alert("NOTICE BROADCASTED!");
+        document.getElementById('adm_not').value = "";
+    }
+
+    /* RENDER ENGINE */
+    function renderResults() {
+        const wall = document.getElementById('res_wall');
+        if(!DATA_R.length) return;
+        wall.innerHTML = DATA_R.map(x => `
+            <div class="res-strip">
+                <span class="name">${x.name}</span>
+                <span class="rank">${x.rank}</span>
+            </div>
+        `).join('');
+    }
+
+    function renderGallery() {
+        const wall = document.getElementById('g_wall');
+        const base = `<img src="https://images.unsplash.com/photo-1541339907198-e08759dfc3ef?w=400" style="width:100%; height:130px; border-radius:15px; object-fit:cover;">`;
+        wall.innerHTML = base + DATA_G.map(u => `<img src="${u}" style="width:100%; height:130px; border-radius:15px; object-fit:cover;">`).join('');
+    }
+
+    function renderNotices() {
+        const wall = document.getElementById('not_wall');
+        if(!DATA_N.length) { wall.innerHTML = "No active notices."; return; }
+        wall.innerHTML = DATA_N.map(x => `
+            <div style="background:var(--bg); padding:15px; border-radius:12px; margin-bottom:10px; border-left:4px solid var(--p);">
+                <small style="color:var(--p); font-weight:800;">${x.date}</small>
+                <p style="margin-top:5px; font-weight:700;">${x.msg}</p>
+            </div>
+        `).join('');
+    }
+
+    function portalAuth() {
+        let n = document.getElementById('un').value.toLowerCase(), i = document.getElementById('ui').value.toUpperCase();
+        let s = DATA_S.find(x => x.n.toLowerCase() === n && x.i === i);
+        if(s) {
+            document.getElementById('p_gate').style.display = 'none';
+            let d = document.getElementById('p_dash'); d.style.display = 'block';
+            d.innerHTML = `
+                <div class="mk-card" style="text-align:center;">
+                    <h3 style="color:var(--orange)">CADET: ${s.n}</h3>
+                    <p style="font-size:11px; opacity:0.6;">IDENTIFICATION: ${s.i}</p>
+                    <hr style="margin:20px 0; opacity:0.1;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:12px;"><span>Package Value</span><b>₹${s.t}</b></div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:12px;"><span>Payment Confirmed</span><b style="color:var(--p)">₹${s.p}</b></div>
+                    <div style="display:flex; justify-content:space-between;"><span>Pending Balance</span><b style="color:red">₹${s.t - s.p}</b></div>
+                    <button class="big-btn" style="margin-top:25px; background:#f0f0f0; color:#333;" onclick="location.reload()">Exit Portal</button>
+                </div>`;
+        } else alert("CADET RECORD NOT FOUND!");
+    }
+
+</script>
+<script type="module" src="firebase.js"></script>
+<script>
+/* =========================================
+   MK ADMIN DELETE POWER PATCH (ADMIN ONLY)
+   For MK GROUP OF INSTITUTIONS
+   ========================================= */
+
+/* ---------- ADMIN FLAG ---------- */
+let MK_ADMIN_UNLOCKED = false;
+
+const oldAdminAuth = adminAuth;
+adminAuth = function () {
+    oldAdminAuth();
+    if (document.getElementById('a_console').style.display === 'block') {
+        MK_ADMIN_UNLOCKED = true;
+        injectDeleteControls();
+    }
+};
+
+/* ---------- INJECT DELETE BUTTONS INSIDE ADMIN ---------- */
+function injectDeleteControls() {
+
+    /* Hall of Fame */
+    if (!document.getElementById("del_res_btn")) {
+        document.querySelector("#a_console").insertAdjacentHTML("beforeend", `
+            <div class="mk-card">
+                <h3>Delete Hall of Fame</h3>
+                <input id="del_res_i" class="mk-input" placeholder="Enter Serial No (1,2,3...)">
+                <button id="del_res_btn" class="big-btn" style="background:#e74c3c;color:#fff;">Delete Result</button>
+            </div>
+        `);
+
+        document.getElementById("del_res_btn").onclick = () => {
+            let i = parseInt(document.getElementById("del_res_i").value) - 1;
+            if (i >= 0 && DATA_R[i]) {
+                DATA_R.splice(i, 1);
+                localStorage.setItem('MK_R', JSON.stringify(DATA_R));
+                renderResults();
+                document.getElementById("del_res_i").value = "";
+            }
+        };
+    }
+
+    /* Gallery */
+    if (!document.getElementById("del_g_btn")) {
+        document.querySelector("#a_console").insertAdjacentHTML("beforeend", `
+            <div class="mk-card">
+                <h3>Delete Gallery Photo</h3>
+                <input id="del_g_i" class="mk-input" placeholder="Enter Serial No">
+                <button id="del_g_btn" class="big-btn" style="background:#e74c3c;color:#fff;">Delete Photo</button>
+            </div>
+        `);
+
+        document.getElementById("del_g_btn").onclick = () => {
+            let i = parseInt(document.getElementById("del_g_i").value) - 1;
+            if (i >= 0 && DATA_G[i]) {
+                DATA_G.splice(i, 1);
+                localStorage.setItem('MK_G', JSON.stringify(DATA_G));
+                renderGallery();
+                document.getElementById("del_g_i").value = "";
+            }
+        };
+    }
+
+    /* Notice */
+    if (!document.getElementById("del_n_btn")) {
+        document.querySelector("#a_console").insertAdjacentHTML("beforeend", `
+            <div class="mk-card">
+                <h3>Delete Notice</h3>
+                <input id="del_n_i" class="mk-input" placeholder="Enter Serial No">
+                <button id="del_n_btn" class="big-btn" style="background:#e74c3c;color:#fff;">Delete Notice</button>
+            </div>
+        `);
+
+        document.getElementById("del_n_btn").onclick = () => {
+            let i = parseInt(document.getElementById("del_n_i").value) - 1;
+            if (i >= 0 && DATA_N[i]) {
+                DATA_N.splice(i, 1);
+                localStorage.setItem('MK_N', JSON.stringify(DATA_N));
+                renderNotices();
+                document.getElementById("del_n_i").value = "";
+            }
+        };
+    }
+
+    /* Student Fees */
+    if (!document.getElementById("del_s_btn")) {
+        document.querySelector("#a_console").insertAdjacentHTML("beforeend", `
+            <div class="mk-card">
+                <h3>Delete Student Record</h3>
+                <input id="del_s_i" class="mk-input" placeholder="Enter Student ID (MK-XXX)">
+                <button id="del_s_btn" class="big-btn" style="background:#e74c3c;color:#fff;">Delete Student</button>
+            </div>
+        `);
+
+        document.getElementById("del_s_btn").onclick = () => {
+            let id = document.getElementById("del_s_i").value.toUpperCase();
+            DATA_S = DATA_S.filter(x => x.i !== id);
+            localStorage.setItem('MK_S', JSON.stringify(DATA_S));
+            document.getElementById("del_s_i").value = "";
+        };
+    }
+}
+
+/* ---------- FIX HALL OF FAME DESIGN (ORANGE BOLD BACK) ---------- */
+const oldRenderResults = renderResults;
+renderResults = function () {
+    const wall = document.getElementById('res_wall');
+
+    if (!DATA_R.length) {
+        wall.innerHTML = "<p style='opacity:0.5;text-align:center;'>No Records</p>";
+        return;
+    }
+
+    wall.innerHTML = DATA_R.map((x, i) => `
+        <div class="res-strip">
+            <span class="name" style="color:#FF8C00;font-weight:900;">
+                ${i + 1}. ${x.name}
+            </span>
+            <span class="rank">${x.rank}</span>
+        </div>
+    `).join('');
+};
+</script>
+<script type="module">
+/* =====================================
+   MK CLOUD FORCE OVERRIDE PATCH
+   For MK GROUP OF INSTITUTIONS
+   No delete needed
+   ===================================== */
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+/* 🔴 APNA FIREBASE CONFIG YAHA PASTE KAR */
+const firebaseConfig = {
+  apiKey: "PASTE",
+  authDomain: "PASTE",
+  projectId: "PASTE",
+  storageBucket: "PASTE",
+  messagingSenderId: "PASTE",
+  appId: "PASTE"
+};
+
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+
+/* ========= FORCE RESET LOCAL ========= */
+DATA_R = [];
+DATA_G = [];
+DATA_N = [];
+DATA_S = [];
+
+
+/* ========= HALL OF FAME ========= */
+window.saveResult = async function () {
+  await addDoc(collection(db, "hall"), {
+    name: rn.value,
+    rank: rr.value
+  });
+  rn.value=""; rr.value="";
+  loadHall();
+};
+
+async function loadHall() {
+  const snap = await getDocs(collection(db,"hall"));
+  DATA_R = [];
+  snap.forEach(d=>DATA_R.push({id:d.id,...d.data()}));
+  renderResults();
+}
+
+
+/* ========= GALLERY ========= */
+window.saveGallery = async function () {
+  await addDoc(collection(db,"gallery"),{url:adm_img.value});
+  adm_img.value="";
+  loadGallery();
+};
+
+async function loadGallery(){
+  const snap = await getDocs(collection(db,"gallery"));
+  DATA_G=[];
+  snap.forEach(d=>DATA_G.push(d.data().url));
+  renderGallery();
+}
+
+
+/* ========= NOTICE ========= */
+window.saveNotice = async function () {
+  await addDoc(collection(db,"notice"),{
+    msg:adm_not.value,
+    date:new Date().toLocaleDateString()
+  });
+  adm_not.value="";
+  loadNotice();
+};
+
+async function loadNotice(){
+  const snap = await getDocs(collection(db,"notice"));
+  DATA_N=[];
+  snap.forEach(d=>DATA_N.push(d.data()));
+  renderNotices();
+}
+
+
+/* ========= STUDENT ========= */
+window.saveStudent = async function () {
+  await addDoc(collection(db,"students"),{
+    n:sn.value,
+    i:si.value.toUpperCase(),
+    p:sp.value,
+    t:st.value
+  });
+  ['sn','si','sp','st'].forEach(x=>document.getElementById(x).value="");
+};
+
+
+/* ========= LOAD ALL ========= */
+window.addEventListener("load", ()=>{
+  loadHall();
+  loadGallery();
+  loadNotice();
+});
+</script>
+</body>
+</html>
