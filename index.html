@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MK Group Official</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --db: #0A192F; --hbg: #050C16; --or: #FF9800; --lbg: #F5F7FA; --w: #FFFFFF; --h: 165px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: var(--lbg); color: #333; padding-top: calc(var(--h) + 10px); }
+
+        /* HEADER REPLICA IMAGE 1 */
+        header { position: fixed; top: 0; width: 100%; height: var(--h); background: var(--hbg); z-index: 2000; border-bottom: 4px solid var(--or); box-shadow: 0 5px 20px rgba(0,0,0,0.4); display: flex; flex-direction: column; }
+        .top-h { flex: 1; display: flex; align-items: center; justify-content: center; padding: 0 15px; }
+        .top-h h1 { font-family: 'Montserrat'; font-size: clamp(16px, 5.5vw, 24px); color: var(--w); text-transform: uppercase; font-weight: 900; white-space: nowrap; }
+        .top-h h1 span { color: var(--or); }
+        
+        /* NAV GRID */
+        nav { height: 85px; display: grid; grid-template-columns: repeat(4, 1fr); background: var(--db); }
+        .n-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; color: #94A3B8; border: none; background: none; cursor: pointer; border-right: 1px solid rgba(255,255,255,0.05); transition: 0.2s; }
+        .n-btn i { font-size: 20px; margin-bottom: 4px; }
+        .n-btn span { font-size: 8px; font-weight: 700; text-transform: uppercase; }
+        .n-btn.active { background: var(--or); color: var(--db); }
+
+        /* CONTENT */
+        .container { padding: 15px; max-width: 600px; margin: 0 auto; padding-bottom: 100px; }
+        .page { display: none; animation: fadeIn 0.4s ease; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* HOME ELEMENTS */
+        .hero { width: 100%; height: 230px; border-radius: 20px; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800'); background-size: cover; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--w); border: 3px solid var(--or); margin-bottom: 20px; text-align: center; }
+        .hero h2 { font-size: 24px; font-weight: 900; }
+        .hero p { color: var(--or); font-weight: 800; font-size: 11px; letter-spacing: 2px; }
+
+        .grid-links { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .g-box { background: var(--db); color: #fff; padding: 18px; border-radius: 12px; text-align: center; font-weight: 800; font-size: 12px; border-bottom: 4px solid var(--or); text-transform: uppercase; }
+
+        .ad-bar { background: var(--or); color: var(--db); padding: 18px; border-radius: 15px; text-align: center; margin-bottom: 20px; font-weight: 900; box-shadow: 0 5px 15px rgba(255,152,0,0.3); }
+        
+        .card { background: var(--w); border-radius: 20px; padding: 20px; margin-bottom: 20px; border: 1px solid #E2E8F0; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .card-h { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; border-bottom: 1px solid #F1F5F9; padding-bottom: 8px; font-weight: 800; color: var(--db); text-transform: uppercase; font-size: 14px; }
+        .card-h i { color: var(--or); }
+
+        /* INPUTS */
+        .mk-in { width: 100%; padding: 16px; border-radius: 10px; border: 2px solid #E2E8F0; margin-bottom: 12px; font-size: 14px; }
+        .mk-btn { width: 100%; padding: 16px; background: var(--db); color: #fff; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; }
+
+        /* CHROME DOWNLOAD BOX */
+        .chrome-dl { background: var(--db); color: #fff; padding: 35px 20px; border-radius: 25px; text-align: center; border: 2px dashed var(--or); margin-top: 20px; }
+        .c-icon { font-size: 50px; margin-bottom: 15px; }
+        .dl-link { background: var(--or); color: var(--db); padding: 15px 30px; border-radius: 50px; font-weight: 900; text-decoration: none; display: inline-block; margin-top: 15px; }
+
+        .wa { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 28px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); text-decoration: none; z-index: 1001; }
+        footer { text-align: center; padding: 30px; color: #94A3B8; font-size: 11px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="top-h"><h1>MK <span>GROUP OF INSTITUTIONS</span></h1></div>
+    <nav>
+        <button class="n-btn active" onclick="tab('home', this)"><i class="fa fa-home"></i><span>Home</span></button>
+        <button class="n-btn" onclick="tab('apply', this)"><i class="fa fa-edit"></i><span>Apply</span></button>
+        <button class="n-btn" onclick="tab('news', this)"><i class="fa fa-bell"></i><span>Notice</span></button>
+        <button class="n-btn" onclick="tab('fees', this)"><i class="fa fa-rupee-sign"></i><span>Fees</span></button>
+        <button class="n-btn" onclick="tab('portal', this)"><i class="fa fa-user"></i><span>Portal</span></button>
+        <button class="n-btn" onclick="tab('admin', this)"><i class="fa fa-cog"></i><span>Admin</span></button>
+        <button class="n-btn" onclick="tab('call', this)"><i class="fa fa-phone"></i><span>Call</span></button>
+        <button class="n-btn" onclick="tab('about', this)"><i class="fa fa-info"></i><span>About</span></button>
+    </nav>
+</header>
+
+<main class="container">
+    <section id="home" class="page active">
+        <div class="hero"><h2>WELCOME TO MK<br>CLASSES</h2><p>YOUR FUTURE, OUR MISSION</p></div>
+        <div class="grid-links">
+            <div class="g-box">Sainik School</div><div class="g-box">RIMC / RMS</div>
+            <div class="g-box">JNV Entrance</div><div class="g-box">Gurukul Prep</div>
+        </div>
+        <div class="ad-bar">ADMISSIONS OPEN 2026-27<br><small style="font-size:9px;">SPECIAL BATCHES FOR BOYS & GIRLS</small></div>
+        <div class="card"><div class="card-h"><i class="fa fa-star"></i>Our Excellence</div><p style="font-size:13px; color:#475569;">Haryana's best coaching for Sainik School and Military School entrance. Residential discipline and 24/7 mentoring.</p></div>
+        <div class="card"><div class="card-h"><i class="fa fa-camera"></i>Gallery</div><div id="h_gal" style="display:grid; grid-template-columns:1fr 1fr; gap:8px;"></div></div>
+    </section>
+
+    <section id="apply" class="page"><div class="card"><h3>Admission Form</h3><br><input class="mk-in" placeholder="Student Name"><input class="mk-in" placeholder="Father Name"><input class="mk-in" placeholder="Phone"><button class="mk-btn">Apply Now</button></div></section>
+
+    <section id="news" class="page"><div class="card" style="padding:0; overflow:hidden;"><div style="background:var(--db); color:#fff; padding:15px; text-align:center; font-weight:800;">NOTICES</div><div id="n_list"></div></div></section>
+
+    <section id="fees" class="page"><div class="card"><h3>Fee Structure</h3><br><div style="display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid #eee;"><span>1st-5th</span><b>₹1,40,000</b></div><div style="display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid #eee;"><span>6th-8th</span><b>₹1,55,000</b></div><div style="display:flex; justify-content:space-between; padding:12px 0;"><span>9th-12th</span><b>₹1,70,000</b></div></div></section>
+
+    <section id="portal" class="page"><div class="card" id="l_box"><h3>Cadet Login</h3><br><input id="u_n" class="mk-in" placeholder="Name"><input id="u_i" class="mk-in" placeholder="ID"><button class="mk-btn" onclick="pIn()">Login</button></div><div id="d_box" style="display:none;"></div></section>
+
+    <section id="admin" class="page"><div class="card" id="a_box"><h3>PIN</h3><br><input type="password" id="a_p" class="mk-in"><button class="mk-btn" onclick="aIn()">Unlock</button></div>
+        <div id="a_con" style="display:none;">
+            <div class="card"><h4>Notice</h4><textarea id="n_i" class="mk-in" style="height:80px;"></textarea><button class="mk-btn" onclick="pN()">Post</button></div>
+            <div class="card"><h4>Student</h4><input id="s_n" class="mk-in" placeholder="Name"><input id="s_i" class="mk-in" placeholder="ID"><input id="s_p" class="mk-in" placeholder="Paid"><input id="s_t" class="mk-in" placeholder="Total"><button class="mk-btn" onclick="sS()">Save</button></div>
+            <div class="card"><h4>Photo</h4><input id="p_u" class="mk-in" placeholder="URL"><button class="mk-btn" onclick="sP()">Add</button></div>
+        </div>
+    </section>
+
+    <section id="call" class="page"><div class="card" style="text-align:center;"><h2 style="font-size:35px; color:var(--db);">8810285636</h2><p style="margin:15px 0;">Support Line</p><a href="tel:8810285636" class="mk-btn" style="text-decoration:none; display:block;">Call Now</a></div></section>
+
+    <section id="about" class="page">
+        <div class="card"><h4>Our Campus</h4><p>As khrab college kasni jhajjar haryana</p><p>Pin: 124103</p></div>
+        <div class="chrome-dl"><div class="c-icon"><i class="fab fa-chrome"></i></div><h3>Install Portal</h3><p style="font-size:12px; margin-top:8px;">Get the official app for easy updates.</p><a href="https://yourlink.com/mkapp.apk" download class="dl-link">CHROME DOWNLOAD</a></div>
+    </section>
+
+    <footer>MK GROUP OF INSTITUTIONS | 2026</footer>
+</main>
+
+<a href="https://wa.me/918810285636" class="wa"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+    const K="Mkclasses@1303"; let S=JSON.parse(localStorage.getItem('MK_S'))||[], N=JSON.parse(localStorage.getItem('MK_N'))||[], P=JSON.parse(localStorage.getItem('MK_P'))||[];
+    window.onload=()=>{ rN(); rG(); };
+    function tab(id,b){ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active')); document.getElementById(id).classList.add('active'); document.querySelectorAll('.n-btn').forEach(n=>n.classList.remove('active')); b.classList.add('active'); window.scrollTo(0,0); }
+    function aIn(){ if(document.getElementById('a_p').value===K){ document.getElementById('a_box').style.display='none'; document.getElementById('a_con').style.display='block'; } else alert('No'); }
+    function pN(){ let m=document.getElementById('n_i').value; N.unshift({m, d:new Date().toLocaleDateString()}); localStorage.setItem('MK_N', JSON.stringify(N)); alert('Ok'); rN(); }
+    function rN(){ document.getElementById('n_list').innerHTML = N.map(n=>`<div style="padding:15px; border-bottom:1px solid #eee;"><small style="color:var(--or); font-weight:800;">${n.d}</small><p style="font-weight:600;">${n.m}</p></div>`).join(''); }
+    function sS(){ let n=document.getElementById('s_n').value, i=document.getElementById('s_i').value.toUpperCase(), p=parseInt(document.getElementById('s_p').value)||0, t=parseInt(document.getElementById('s_t').value)||0; S.push({n,i,p,t}); localStorage.setItem('MK_S', JSON.stringify(S)); alert('Ok'); }
+    function sP(){ let u=document.getElementById('p_u').value; P.push(u); localStorage.setItem('MK_P', JSON.stringify(P)); rG(); alert('Ok'); }
+    function rG(){ let g=document.getElementById('h_gal'); let h=`<img src="https://images.unsplash.com/photo-1541339907198-e08759dfc3ef?auto=format&fit=crop&w=300" style="width:100%; border-radius:10px;"><img src="https://images.unsplash.com/photo-1523050853063-8805af9e59a5?auto=format&fit=crop&w=300" style="width:100%; border-radius:10px;">`; P.forEach(p=>{ h+=`<img src="${p}" style="width:100%; border-radius:10px;">`}); g.innerHTML=h; }
+    function pIn(){ let n=document.getElementById('u_n').value.toLowerCase(), i=document.getElementById('u_i').value.toUpperCase(); let s=S.find(x=>x.n.toLowerCase()===n && x.i===i); if(s){ document.getElementById('l_box').style.display='none'; let d=document.getElementById('d_box'); d.style.display='block'; d.innerHTML=`<div class="card" style="text-align:center;"><h3>${s.n}</h3><br><div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;"><div style="background:#f0fff4; padding:10px;">Paid: ${s.p}</div><div style="background:#fff5f5; padding:10px;">Due: ${s.t-s.p}</div></div><button class="mk-btn" style="margin-top:15px;" onclick="location.reload()">Logout</button></div>`; } else alert('No Record'); }
+</script>
+</body>
+</html>
