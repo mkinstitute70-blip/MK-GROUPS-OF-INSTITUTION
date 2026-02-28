@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MK Classes | The Leader in Defence Prep</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           1. MASTER CSS ENGINE (DENSE & DETAILED)
+           ========================================= */
+        :root {
+            --mk-primary: #010d1a;
+            --mk-secondary: #041221;
+            --mk-accent: #ff9f1c;
+            --mk-white: #ffffff;
+            --mk-bg: #f1f5f9;
+            --mk-text: #0f172a;
+            --mk-muted: #64748b;
+            --mk-success: #10b981;
+            /* CRITICAL: Header Height + Safe Margin */
+            --header-h: 185px; 
+            --radius: 18px;
+            --shadow: 0 15px 35px -5px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--mk-bg);
+            color: var(--mk-text);
+            /* FIX: Content starts exactly after the header bottom border */
+            padding-top: var(--header-h); 
+            line-height: 1.6;
+        }
+
+        /* HEADER ARCHITECTURE */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--mk-primary);
+            z-index: 9999999; /* Supreme stacking */
+            border-bottom: 5px solid var(--mk-accent);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+
+        .mk-logobar {
+            padding: 18px 10px;
+            text-align: center;
+        }
+
+        .mk-logobar h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 21px;
+            font-weight: 900;
+            color: var(--mk-white);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .mk-logobar h1 span { color: var(--mk-accent); }
+
+        /* NAVIGATION MATRIX */
+        nav.nav-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            background-color: var(--mk-secondary);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .grid-node {
+            padding: 12px 2px;
+            border: none;
+            background: transparent;
+            color: #94a3b8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .grid-node i { font-size: 19px; margin-bottom: 4px; color: var(--mk-accent); }
+        .grid-node span { font-size: 8px; font-weight: 800; text-transform: uppercase; }
+        .grid-node.active { background-color: var(--mk-accent); color: var(--mk-primary); }
+        .grid-node.active i { color: var(--mk-primary); }
+
+        /* CONTENT WRAPPER */
+        main.content-wrapper {
+            padding: 25px 15px;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .pane-view { display: none; animation: slideUp 0.5s ease-out; }
+        .pane-view.active { display: block; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* HOME HERO (MERGED IMAGE OVERLAY) */
+        .home-hero {
+            position: relative;
+            background: linear-gradient(rgba(1, 13, 26, 0.78), rgba(1, 13, 26, 0.78)), 
+                        url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1000'); 
+            background-size: cover;
+            background-position: center;
+            padding: 55px 20px;
+            border-radius: var(--radius);
+            text-align: center;
+            margin-bottom: 25px;
+            border: 2px solid var(--mk-accent);
+            box-shadow: 0 10px 30px rgba(1,13,26,0.3);
+        }
+
+        .home-hero h2 { color: #fff; font-family: 'Montserrat'; font-size: 24px; text-transform: uppercase; }
+        .home-hero p { color: var(--mk-accent); font-weight: 900; letter-spacing: 3px; font-size: 11px; text-transform: uppercase; margin-top: 5px; }
+
+        .tag-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px; }
+        .tag-item { background: var(--mk-primary); color: #fff; padding: 14px; border-radius: 12px; font-size: 11px; font-weight: 900; text-align: center; border-bottom: 4px solid var(--mk-accent); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+
+        /* CARDS & PANELS */
+        .premium-card {
+            background: #fff;
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid #e2e8f0;
+        }
+
+        .card-title { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid var(--mk-bg); }
+        .card-title i { color: var(--mk-accent); font-size: 20px; }
+        .card-title h2 { font-size: 15px; font-weight: 800; text-transform: uppercase; color: var(--mk-primary); }
+
+        /* SYLLABUS EXPANSION */
+        .syllabus-block { margin-bottom: 20px; }
+        .syllabus-head { font-size: 13px; font-weight: 900; color: var(--mk-accent); margin-bottom: 8px; display: block; border-left: 4px solid var(--mk-primary); padding-left: 10px; }
+        .syllabus-list { font-size: 12px; color: var(--mk-text); list-style: none; padding-left: 5px; }
+        .syllabus-list li { margin-bottom: 6px; display: flex; align-items: flex-start; gap: 10px; }
+        .syllabus-list li::before { content: '✔'; color: var(--mk-success); font-weight: 900; }
+
+        /* FEES LEDGER */
+        .fee-entry { display: flex; justify-content: space-between; padding: 15px; background: var(--mk-bg); border-radius: 12px; margin-bottom: 10px; border-left: 6px solid var(--mk-accent); }
+        .fee-label { font-size: 13px; font-weight: 800; }
+        .fee-cost { font-size: 16px; font-weight: 900; color: var(--mk-success); }
+        .fee-details { font-size: 10.5px; color: var(--mk-muted); padding: 0 10px 15px 15px; line-height: 1.5; font-style: italic; }
+
+        /* NOTICES & BROADCAST */
+        .broadcast-node { padding: 15px; border-radius: 12px; background: #fff9f0; border: 1px solid #fee2b3; margin-bottom: 12px; border-right: 5px solid var(--mk-accent); }
+        .broadcast-date { font-size: 10px; font-weight: 900; color: var(--mk-accent); margin-bottom: 5px; display: block; }
+        .broadcast-msg { font-size: 12.5px; font-weight: 600; color: var(--mk-primary); }
+
+        /* FORM CONTROLS */
+        .mk-input { width: 100%; padding: 14px; border-radius: 12px; border: 2px solid #e2e8f0; margin-bottom: 15px; font-size: 14px; outline: none; transition: 0.3s; }
+        .mk-input:focus { border-color: var(--mk-accent); box-shadow: 0 0 10px rgba(255,159,28,0.2); }
+        .mk-btn { width: 100%; padding: 18px; background: var(--mk-primary); color: #fff; border: none; border-radius: 12px; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
+        .mk-btn:active { transform: scale(0.97); }
+
+        /* CAMPUS MEDIA */
+        .media-scroller { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 15px; margin-bottom: 15px; scrollbar-width: none; }
+        .media-btn { padding: 10px 20px; background: #e2e8f0; border-radius: 30px; font-size: 11px; font-weight: 800; border: none; white-space: nowrap; cursor: pointer; }
+        .media-btn.active { background: var(--mk-primary); color: #fff; }
+        .viewport img { width: 100%; height: 240px; border-radius: 20px; object-fit: cover; border: 5px solid #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+        /* ADDRESS BOX */
+        .address-box { background: #f8fafc; padding: 20px; border-radius: 15px; border: 1px solid #cbd5e1; margin-top: 15px; font-size: 13px; line-height: 1.8; border-right: 6px solid var(--mk-primary); }
+
+        /* WHATSAPP FLOAT */
+        .wa-float { position: fixed; bottom: 30px; right: 25px; width: 65px; height: 65px; background: #25d366; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; z-index: 99999999; box-shadow: 0 10px 25px rgba(37,211,102,0.4); text-decoration: none; }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="mk-logobar">
+        <h1>MK <span>GROUP OF INSTITUTIONS</span></h1>
+    </div>
+    <nav class="nav-grid">
+        <button class="grid-node active" onclick="navTo('home', this)"><i class="fa fa-home"></i><span>Home</span></button>
+        <button class="grid-node" onclick="navTo('academics', this)"><i class="fa fa-graduation-cap"></i><span>Academics</span></button>
+        <button class="grid-node" onclick="navTo('admission', this)"><i class="fa fa-pencil-alt"></i><span>Admission</span></button>
+        <button class="grid-node" onclick="navTo('fees', this)"><i class="fa fa-wallet"></i><span>Fees</span></button>
+        
+        <button class="grid-node" onclick="navTo('notices', this)"><i class="fa fa-bullhorn"></i><span>Notices</span></button>
+        <button class="grid-node" onclick="navTo('campus', this)"><i class="fa fa-university"></i><span>Campus</span></button>
+        <button class="grid-node" onclick="navTo('portal', this)"><i class="fa fa-user-lock"></i><span>Portal</span></button>
+        <button class="grid-node" onclick="navTo('admin', this)"><i class="fa fa-cog"></i><span>Admin</span></button>
+    </nav>
+</header>
+
+<main class="content-wrapper">
+
+    <section id="home" class="pane-view active">
+        <div class="home-hero">
+            <h2>WELCOME TO MK CLASSES</h2>
+            <p>Your Future, Our Mission</p>
+        </div>
+        
+        <div class="tag-row">
+            <div class="tag-item">SAINIK SCHOOL</div>
+            <div class="tag-item">RIMC / RMS</div>
+            <div class="tag-item">JNV ENTRANCE</div>
+            <div class="tag-item">GURUKUL PREP</div>
+        </div>
+
+        <div class="premium-card" style="background: var(--mk-accent); border: none; text-align: center;">
+            <h3 style="font-weight: 900; font-size: 17px; color: var(--mk-primary);">ADMISSIONS OPEN 2026-27</h3>
+            <p style="font-weight: 800; font-size: 11px; color: #000;">ENROLLING NOW FOR BOYS & GIRLS</p>
+        </div>
+
+        <div class="premium-card">
+            <div class="card-title"><i class="fa fa-award"></i><h2>Our Excellence</h2></div>
+            <p style="font-size: 13px; color: var(--mk-muted);"> Dedicated to grooming future officers with 24/7 residential discipline, expert faculty, and a semi-military lifestyle in Jhajjar, Haryana.</p>
+        </div>
+    </section>
+
+    <section id="academics" class="pane-view">
+        <div class="premium-card">
+            <div class="card-title"><i class="fa fa-book-open"></i><h2>Topic-Wise Syllabus</h2></div>
+            
+            <div class="syllabus-block">
+                <span class="syllabus-head">Mathematics & IQ</span>
+                <ul class="syllabus-list">
+                    <li>Arithmetic (HCF, LCM, Percentages, Profit/Loss)</li>
+                    <li>Algebra & Linear Equations</li>
+                    <li>Geometry & Mensuration (2D/3D shapes)</li>
+                    <li>Logical Reasoning & Series Completion</li>
+                </ul>
+            </div>
+
+            <div class="syllabus-block">
+                <span class="syllabus-head">English Grammar</span>
+                <ul class="syllabus-list">
+                    <li>Parts of Speech & Tense Correction</li>
+                    <li>Active/Passive Voice & Narration</li>
+                    <li>Vocabulary (Antonyms, Synonyms, Idioms)</li>
+                    <li>Essay Writing & Letter Drafting</li>
+                </ul>
+            </div>
+
+            <div class="syllabus-block">
+                <span class="syllabus-head">General Knowledge & Science</span>
+                <ul class="syllabus-list">
+                    <li>Indian History & Geography Specials</li>
+                    <li>Defence Org & Current Affairs</li>
+                    <li>Physics, Chemistry & Biology Basics</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="admission" class="pane-view">
+        <div class="premium-card">
+            <div class="card-title"><i class="fa fa-user-plus"></i><h2>Admission Inquiry</h2></div>
+            <input type="text" id="adm_n" class="mk-input" placeholder="Full Name of Cadet">
+            <input type="text" id="adm_f" class="mk-input" placeholder="Father's Name">
+            <input type="text" id="adm_c" class="mk-input" placeholder="Applying Class (e.g., 6th)">
+            <input type="number" id="adm_p" class="mk-input" placeholder="WhatsApp Number">
+            <button class="mk-btn" onclick="alert('Inquiry Submitted! Our Counselor will call you.')">Submit Registration</button>
+        </div>
+    </section>
+
+    <section id="fees" class="pane-view">
+        <div class="premium-card">
+            <div class="card-title"><i class="fa fa-receipt"></i><h2>Residential Fee Plans</h2></div>
+            
+            <div class="fee-entry"><span class="fee-label">Class 1st - 5th</span><span class="fee-cost">₹1,40,000</span></div>
+            <p class="fee-details">Includes: Schooling, AC Hostel, 4-Meals diet, Uniforms, Books & Laundry.</p>
+
+            <div class="fee-entry"><span class="fee-label">Class 6th - 8th</span><span class="fee-cost">₹1,50,000</span></div>
+            <p class="fee-details">Includes: Intensive Sainik/RMS coaching, Physical Drill, Library & Messing.</p>
+
+            <div class="fee-entry"><span class="fee-label">Class 9th - 12th</span><span class="fee-cost">₹1,75,000</span></div>
+            <p class="fee-details">Includes: NDA/Foundation Prep, Advanced Labs, SSB Grooming & Board Exams.</p>
+        </div>
+    </section>
+
+    <section id="notices" class="pane-view">
+        <div class="premium-card">
+            <div class="card-title"><i class="fa fa-bullhorn"></i><h2>Notice Board</h2></div>
+            <div id="notice_panel">
+                <p style="text-align:center; font-size:12px;">Connecting to Live Feed...</p>
+            </div>
+        </div>
+        
+        <div class="premium-card">
+            <div class="card-title"><i class="fa fa-map-marked-alt"></i><h2>Official Address</h2></div>
+            <div class="address-box">
+                <b>MK GROUP OF INSTITUTIONS</b><br>
+                VPO - Kasni, Near Kasni Gate,<br>
+                Opposite Police Chowki,<br>
+                Jhajjar City, Haryana - 124103<br>
+                <b>Mobile:</b> 8810285636, 8810285636
+            </div>
+        </div>
+    </section>
+
+    <section id="campus" class="pane-view">
+        <div class="premium-card">
+            <div class="card-title"><i class="fa fa-camera-retro"></i><h2>Campus Tour</h2></div>
+            <div class="media-scroller">
+                <button class="media-btn active" onclick="swapImg('hostel', this)">Hostel</button>
+                <button class="media-btn" onclick="swapImg('class', this)">Classroom</button>
+                <button class="media-btn" onclick="swapImg('lab', this)">Labs</button>
+                <button class="media-btn" onclick="swapImg('ground', this)">Ground</button>
+            </div>
+            <div class="viewport">
+                <img id="main_gal" src="https://images.unsplash.com/photo-1555854817-5b27a8a28592?w=800">
+            </div>
+        </div>
+    </section>
+
+    <section id="portal" class="pane-view">
+        <div class="premium-card" id="port_login">
+            <div class="card-title"><i class="fa fa-fingerprint"></i><h2>Cadet Dashboard</h2></div>
+            <input type="text" id="p_user" class="mk-input" placeholder="Cadet Name">
+            <input type="text" id="p_id" class="mk-input" placeholder="Admission ID">
+            <button class="mk-btn" onclick="portalAuth()">Unlock Portal</button>
+        </div>
+        <div id="p_dash" style="display:none;"></div>
+    </section>
+
+    <section id="admin" class="pane-view">
+        <div class="premium-card" id="adm_lock">
+            <div style="text-align:center; padding: 25px 0;">
+                <i class="fa fa-lock" style="font-size: 50px; color: var(--mk-accent); margin-bottom: 15px;"></i>
+                <h2 style="font-size:15px; margin-bottom:20px;">STAFF CONSOLE</h2>
+                <input type="password" id="m_key" class="mk-input" placeholder="Master Access PIN">
+                <button class="mk-btn" onclick="adminAuth()">Enter System</button>
+            </div>
+        </div>
+        
+        <div id="adm_panel" style="display:none;">
+            <div class="premium-card">
+                <h3>CADET DATABASE SYNC</h3>
+                <input type="text" id="as_n" class="mk-input" placeholder="Name" style="margin-top:12px;">
+                <input type="text" id="as_i" class="mk-input" placeholder="ID">
+                <input type="number" id="as_p" class="mk-input" placeholder="Paid">
+                <input type="number" id="as_t" class="mk-input" placeholder="Total">
+                <button class="mk-btn" onclick="saveData()">Push to DB</button>
+            </div>
+            <div class="premium-card">
+                <h3>POST LIVE BROADCAST</h3>
+                <textarea id="an_m" class="mk-input" style="height:90px; margin-top:12px;" placeholder="Message Body..."></textarea>
+                <button class="mk-btn" onclick="postNotice()">Go Live</button>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<a href="https://wa.me/918810285636" class="wa-float"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+    const KEY = "Mkclasses@1303";
+    let DB_S = JSON.parse(localStorage.getItem('MK_S_DB')) || [];
+    let DB_N = JSON.parse(localStorage.getItem('MK_N_DB')) || [];
+
+    // Master Navigation
+    function navTo(id, btn) {
+        document.querySelectorAll('.pane-view').forEach(p => p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.querySelectorAll('.grid-node').forEach(n => n.classList.remove('active'));
+        btn.classList.add('active');
+        if(id === 'notices') renderNotices();
+        window.scrollTo(0,0);
+    }
+
+    // Media Switcher
+    function swapImg(key, btn) {
+        const gal = document.getElementById('main_gal');
+        document.querySelectorAll('.media-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const assets = {
+            hostel: 'https://images.unsplash.com/photo-1555854817-5b27a8a28592?w=800',
+            class: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800',
+            lab: 'https://images.unsplash.com/photo-1581093588401-fbb62a02f120?w=800',
+            ground: 'https://images.unsplash.com/photo-1595113316349-9fa4ee24f884?w=800'
+        };
+        gal.src = assets[key];
+    }
+
+    // Security Logic
+    function adminAuth() {
+        if(document.getElementById('m_key').value === KEY) {
+            document.getElementById('adm_lock').style.display = 'none';
+            document.getElementById('adm_panel').style.display = 'block';
+        } else {
+            alert("SECURITY: UNAUTHORIZED ACCESS!");
+        }
+    }
+
+    // Database Sync
+    function saveData() {
+        const n = document.getElementById('as_n').value;
+        const i = document.getElementById('as_i').value.toUpperCase();
+        const p = parseInt(document.getElementById('as_p').value) || 0;
+        const t = parseInt(document.getElementById('as_t').value) || 0;
+
+        if(!n || !i) return alert("Fill Name/ID!");
+        const data = { n, i, p, t };
+        const idx = DB_S.findIndex(s => s.i === i);
+        if(idx > -1) DB_S[idx] = data; else DB_S.push(data);
+
+        localStorage.setItem('MK_S_DB', JSON.stringify(DB_S));
+        alert("Sync Complete!");
+        location.reload();
+    }
+
+    // Notice Broadcast
+    function postNotice() {
+        const m = document.getElementById('an_m').value;
+        if(!m) return;
+        DB_N.unshift({ m, d: new Date().toLocaleDateString() });
+        localStorage.setItem('MK_N_DB', JSON.stringify(DB_N));
+        alert("Published!");
+        renderNotices();
+    }
+
+    function renderNotices() {
+        const box = document.getElementById('notice_panel');
+        if(DB_N.length === 0) {
+            box.innerHTML = "<p style='text-align:center; font-size:11px;'>No active news updates.</p>";
+            return;
+        }
+        box.innerHTML = DB_N.map(n => `
+            <div class="broadcast-node">
+                <span class="broadcast-date">${n.d}</span>
+                <p class="broadcast-msg">${n.m}</p>
+            </div>
+        `).join('');
+    }
+
+    // Cadet Portal Auth
+    function portalAuth() {
+        const name = document.getElementById('p_user').value.toLowerCase();
+        const id = document.getElementById('p_id').value.toUpperCase();
+        const student = DB_S.find(s => s.n.toLowerCase() === name && s.i === id);
+
+        if(student) {
+            document.getElementById('port_login').style.display = 'none';
+            const dash = document.getElementById('p_dash');
+            dash.style.display = 'block';
+            dash.innerHTML = `
+                <div class="premium-card" style="text-align:center;">
+                    <h2 style="font-family:Montserrat; font-size:24px;">Hi, ${student.n}</h2>
+                    <p style="font-weight:900; color:var(--mk-accent); margin-bottom:15px;">ID: ${student.i}</p>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                        <div style="background:#dcfce7; padding:20px; border-radius:15px; border:2px solid #22c55e;">
+                            <small style="font-weight:800; font-size:10px;">FEES PAID</small><h3 style="font-size:18px;">₹${student.p}</h3>
+                        </div>
+                        <div style="background:#fee2e2; padding:20px; border-radius:15px; border:2px solid #ef4444;">
+                            <small style="font-weight:800; font-size:10px;">BALANCE</small><h3 style="font-size:18px;">₹${student.t - student.p}</h3>
+                        </div>
+                    </div>
+                    <button class="mk-btn" style="margin-top:20px; background:#64748b;" onclick="location.reload()">Logout Session</button>
+                </div>
+            `;
+        } else {
+            alert("No Cadet data found!");
+        }
+    }
+
+    window.onload = renderNotices;
+</script>
+
+</body>
+</html>
