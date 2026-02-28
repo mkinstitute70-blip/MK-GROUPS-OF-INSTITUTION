@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MK Classes | Jhajjar</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           1. CORE CSS ENGINE (EXPANDED DENSITY)
+           ========================================= */
+        :root {
+            --mk-primary: #010d1a;
+            --mk-secondary: #041221;
+            --mk-accent: #ff9f1c;
+            --mk-white: #ffffff;
+            --mk-grey-bg: #f8fafc;
+            --mk-text-main: #0f172a;
+            --mk-text-muted: #64748b;
+            --mk-success-ui: #10b981;
+            --mk-danger-ui: #ef4444;
+            --header-total-height: 170px; /* INCREASED TO STOP HIDING CONTENT */
+            --border-standard: #e2e8f0;
+            --shadow-premium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* RESET & BASE STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: var(--header-total-height);
+        }
+
+        body {
+            background-color: var(--mk-grey-bg);
+            color: var(--mk-text-main);
+            line-height: 1.6;
+            /* FIX: Content Ab Header Ke Peeche Nahi Jayega */
+            padding-top: var(--header-total-height); 
+            overflow-x: hidden;
+        }
+
+        /* HEADER & NAVIGATION ARCHITECTURE */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--mk-primary);
+            z-index: 999999; /* HIGHEST LEVEL */
+            border-bottom: 5px solid var(--mk-accent);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.4);
+        }
+
+        .mk-brand-box {
+            padding: 20px 10px;
+            text-align: center;
+        }
+
+        .mk-brand-box h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 21px;
+            font-weight: 900;
+            color: var(--mk-white);
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+        }
+
+        .mk-brand-box h1 span {
+            color: var(--mk-accent);
+        }
+
+        nav.nav-bar-matrix {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            background-color: var(--mk-secondary);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .matrix-item {
+            padding: 12px 2px;
+            border: none;
+            background: transparent;
+            color: #94a3b8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .matrix-item i {
+            font-size: 19px;
+            margin-bottom: 5px;
+            color: var(--mk-accent);
+        }
+
+        .matrix-item span {
+            font-size: 8px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .matrix-item.is-active {
+            background-color: var(--mk-accent);
+            color: var(--mk-primary);
+        }
+
+        .matrix-item.is-active i {
+            color: var(--mk-primary);
+        }
+
+        /* CONTENT WRAPPER */
+        main.portal-engine {
+            padding: 25px 15px;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .view-pane {
+            display: none;
+            animation: slideUp 0.6s ease;
+        }
+
+        .view-pane.active {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* CARDS & UI COMPONENTS */
+        .premium-card {
+            background: var(--mk-white);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow-premium);
+            border: 1px solid var(--border-standard);
+            position: relative;
+        }
+
+        .card-heading {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--mk-grey-bg);
+        }
+
+        .card-heading i {
+            font-size: 20px;
+            color: var(--mk-accent);
+        }
+
+        .card-heading h2 {
+            font-size: 16px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--mk-primary);
+        }
+
+        /* HOME ELEMENTS */
+        .hero-welcome {
+            background: linear-gradient(rgba(1,13,26,0.85), rgba(1,13,26,0.85)), url('https://images.unsplash.com/photo-1523050853064-95246373b495?w=800');
+            background-size: cover;
+            background-position: center;
+            padding: 40px 20px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 25px;
+            border: 2px solid var(--mk-accent);
+        }
+
+        .hero-welcome h2 {
+            color: var(--mk-white);
+            font-size: 24px;
+            font-family: 'Montserrat';
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .hero-welcome p {
+            color: var(--mk-accent);
+            font-weight: 800;
+            letter-spacing: 2.5px;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+
+        .tag-matrix {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .status-tag {
+            background: var(--mk-primary);
+            color: white;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 900;
+            text-align: center;
+            border-bottom: 4px solid var(--mk-accent);
+        }
+
+        /* FEES ARCHITECTURE */
+        .fee-ledger {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background: var(--mk-grey-bg);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border-left: 6px solid var(--mk-accent);
+        }
+
+        .fee-ledger .class-name { font-size: 14px; font-weight: 800; }
+        .fee-ledger .amount { font-size: 18px; font-weight: 900; color: var(--mk-success-ui); }
+
+        /* CAMPUS MEDIA TAB */
+        .campus-scroll {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            scrollbar-width: none;
+        }
+
+        .campus-scroll::-webkit-scrollbar { display: none; }
+
+        .campus-btn {
+            padding: 10px 22px;
+            background: #e2e8f0;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 800;
+            border: none;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .campus-btn.active {
+            background: var(--mk-primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(1,13,26,0.3);
+        }
+
+        .image-viewport img {
+            width: 100%;
+            height: 230px;
+            border-radius: 18px;
+            object-fit: cover;
+            border: 5px solid #fff;
+            box-shadow: var(--shadow-premium);
+        }
+
+        /* FORM CONTROLS */
+        .mk-field {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            margin-bottom: 15px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .mk-field:focus {
+            border-color: var(--mk-accent);
+            outline: none;
+            background: #fff;
+        }
+
+        .mk-main-btn {
+            width: 100%;
+            padding: 18px;
+            background: var(--mk-primary);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .mk-main-btn:active { transform: scale(0.97); }
+
+        /* ADDRESS AREA */
+        .address-container {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid #cbd5e1;
+            margin-top: 20px;
+            font-size: 13px;
+            line-height: 1.8;
+            border-right: 5px solid var(--mk-primary);
+        }
+
+        /* WHATSAPP FLOAT */
+        .wa-float-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 25px;
+            width: 65px;
+            height: 65px;
+            background: #25d366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            z-index: 9999999;
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="mk-brand-box">
+        <h1>MK <span>GROUP OF INSTITUTIONS</span></h1>
+    </div>
+    <nav class="nav-bar-matrix">
+        <button class="matrix-item is-active" onclick="switchTab('home', this)"><i class="fa fa-home"></i><span>Home</span></button>
+        <button class="matrix-item" onclick="switchTab('academics', this)"><i class="fa fa-graduation-cap"></i><span>Academics</span></button>
+        <button class="matrix-item" onclick="switchTab('admission', this)"><i class="fa fa-pencil-alt"></i><span>Admission</span></button>
+        <button class="matrix-item" onclick="switchTab('fees', this)"><i class="fa fa-coins"></i><span>Fees</span></button>
+        
+        <button class="matrix-item" onclick="switchTab('about', this)"><i class="fa fa-info-circle"></i><span>About/Contact</span></button>
+        <button class="matrix-item" onclick="switchTab('campus', this)"><i class="fa fa-images"></i><span>Campus</span></button>
+        <button class="matrix-item" onclick="switchTab('portal', this)"><i class="fa fa-lock"></i><span>Portal</span></button>
+        <button class="matrix-item" onclick="switchTab('admin', this)"><i class="fa fa-user-shield"></i><span>Admin</span></button>
+    </nav>
+</header>
+
+<main class="portal-engine">
+
+    <section id="home" class="view-pane active">
+        <div class="hero-welcome">
+            <h2>WELCOME TO MK CLASSES</h2>
+            <p>Your Future, Our Mission</p>
+        </div>
+        
+        <div class="tag-matrix">
+            <div class="status-tag">SAINIK SCHOOL</div>
+            <div class="status-tag">RIMC / RMS</div>
+            <div class="status-tag">JNV ENTRANCE</div>
+            <div class="status-tag">GURUKUL PREP</div>
+        </div>
+
+        <div class="premium-card" style="background: var(--mk-accent); border: none; text-align: center;">
+            <h3 style="font-weight: 900; font-size: 17px; color: var(--mk-primary);">ADMISSIONS OPEN 2026-27</h3>
+            <p style="font-weight: 800; font-size: 11px; color: #000;">SPECIAL BATCHES FOR BOYS & GIRLS</p>
+        </div>
+
+        <div class="premium-card">
+            <div class="card-heading"><i class="fa fa-star"></i><h2>Our Excellence</h2></div>
+            <p style="font-size: 13px; color: var(--mk-text-muted);">MK Group is dedicated to preparing cadets for defense entrance exams with a blend of academic rigor and physical toughness in a semi-military environment.</p>
+        </div>
+    </section>
+
+    <section id="academics" class="view-pane">
+        <div class="premium-card">
+            <div class="card-heading"><i class="fa fa-calendar-check"></i><h2>Cadet Daily Routine</h2></div>
+            <div class="fee-ledger"><span class="class-name">05:30 AM</span><span class="class-name">Morning PT</span></div>
+            <div class="fee-ledger"><span class="class-name">09:00 AM</span><span class="class-name">Schooling</span></div>
+            <div class="fee-ledger"><span class="class-name">04:00 PM</span><span class="class-name">Sports/Drill</span></div>
+            <div class="fee-ledger"><span class="class-name">07:00 PM</span><span class="class-name">Study Hours</span></div>
+        </div>
+        <div class="premium-card">
+            <div class="card-heading"><i class="fa fa-book-open"></i><h2>Syllabus Focus</h2></div>
+            <p style="font-size: 13px;">Special focus on Mathematics, Logical Reasoning, General Knowledge, and English Communication for RIMC & Sainik interviews.</p>
+        </div>
+    </section>
+
+    <section id="admission" class="view-pane">
+        <div class="premium-card">
+            <div class="card-heading"><i class="fa fa-edit"></i><h2>Admission Inquiry</h2></div>
+            <input type="text" class="mk-field" placeholder="Student Full Name">
+            <input type="text" class="mk-field" placeholder="Father's Name">
+            <input type="text" class="mk-field" placeholder="Class for Admission">
+            <input type="number" class="mk-field" placeholder="WhatsApp Number">
+            <button class="mk-main-btn" onclick="alert('Inquiry Sent! We will contact you soon.')">Submit Form</button>
+        </div>
+    </section>
+
+    <section id="fees" class="view-pane">
+        <div class="premium-card">
+            <div class="card-heading"><i class="fa fa-wallet"></i><h2>Residential Fee Structure</h2></div>
+            <div class="fee-ledger"><span class="class-name">Class 1st - 5th</span><span class="amount">₹1,40,000</span></div>
+            <div class="fee-ledger"><span class="class-name">Class 6th - 8th</span><span class="amount">₹1,50,000</span></div>
+            <div class="fee-ledger"><span class="class-name">Class 9th - 12th</span><span class="amount">₹1,75,000</span></div>
+            <p style="font-size: 11px; margin-top: 12px; color: var(--mk-text-muted);">*Fees includes AC Hostel, 4-time Meals, Uniform, and Study Material.</p>
+        </div>
+    </section>
+
+    <section id="about" class="view-pane">
+        <div class="premium-card">
+            <div class="card-heading"><i class="fa fa-info-circle"></i><h2>About MK Classes</h2></div>
+            <p style="font-size: 13px;">Established with the vision to serve the nation, MK Group of Institutions provides top-tier coaching for defense aspirants. Our campus is fully residential with separate wings for Boys and Girls.</p>
+            
+            <div class="card-heading" style="margin-top: 30px; border:none;"><i class="fa fa-map-marker-alt"></i><h2>Official Address</h2></div>
+            <div class="address-container">
+                <b>MK GROUP OF INSTITUTIONS</b><br>
+                VPO - Kasni, Near Kasni Gate,<br>
+                Opposite Police Chowki,<br>
+                Jhajjar City, Haryana - 124103<br>
+                <b>Helpline:</b> 8810285636, 8810285636
+            </div>
+        </div>
+
+        <div class="premium-card">
+            <div class="card-heading"><i class="fa fa-bullhorn"></i><h2>Live News Feed</h2></div>
+            <div id="news_feed" style="background:#fff9f0; padding:15px; border-radius:12px; border:1px solid #fee2b3;">
+                <p style="text-align:center; font-size:12px;">Connecting to server...</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="campus" class="view-pane">
+        <div class="premium-card">
+            <div class="card-heading"><i class="fa fa-university"></i><h2>Campus Facilities</h2></div>
+            <div class="campus-scroll">
+                <button class="campus-btn active" onclick="updateGal('hostel', this)">Hostel</button>
+                <button class="campus-btn" onclick="updateGal('classroom', this)">Classroom</button>
+                <button class="campus-btn" onclick="updateGal('library', this)">Library</button>
+                <button class="campus-btn" onclick="updateGal('lab', this)">Lab</button>
+                <button class="campus-btn" onclick="updateGal('ground', this)">Ground</button>
+            </div>
+            <div class="image-viewport">
+                <img id="campus_img" src="https://images.unsplash.com/photo-1555854817-5b27a8a28592?w=600">
+            </div>
+        </div>
+    </section>
+
+    <section id="portal" class="view-pane">
+        <div class="premium-card" id="p_login_box">
+            <div class="card-heading"><i class="fa fa-user-lock"></i><h2>Cadet Login</h2></div>
+            <input type="text" id="stu_name" class="mk-field" placeholder="Cadet Name">
+            <input type="text" id="stu_id" class="mk-field" placeholder="Admission ID">
+            <button class="mk-main-btn" onclick="stuLogin()">Login Dashboard</button>
+        </div>
+        <div id="stu_dash" style="display:none;"></div>
+    </section>
+
+    <section id="admin" class="view-pane">
+        <div class="premium-card" id="a_lock_screen">
+            <div style="text-align:center; padding: 20px 0;">
+                <i class="fa fa-shield-alt" style="font-size: 50px; color: var(--mk-accent); margin-bottom: 15px;"></i>
+                <h2 style="font-size:16px; margin-bottom:20px;">SYSTEM SECURITY</h2>
+                <input type="password" id="m_pass" class="mk-field" placeholder="Master Access PIN">
+                <button class="mk-main-btn" onclick="adminAccess()">Unlock Console</button>
+            </div>
+        </div>
+        
+        <div id="a_console" style="display:none;">
+            <div class="premium-card">
+                <h3>MANAGE CADET DATABASE</h3>
+                <input type="text" id="n_name" class="mk-field" placeholder="Name" style="margin-top:12px;">
+                <input type="text" id="n_id" class="mk-field" placeholder="ID">
+                <input type="number" id="n_paid" class="mk-field" placeholder="Fees Paid">
+                <input type="number" id="n_total" class="mk-field" placeholder="Total Fee">
+                <button class="mk-main-btn" onclick="saveRecord()">Sync Database</button>
+            </div>
+            <div class="premium-card">
+                <h3>PUBLISH GLOBAL NOTICE</h3>
+                <textarea id="n_msg" class="mk-field" style="height:100px; margin-top:12px;" placeholder="Message Body..."></textarea>
+                <button class="mk-main-btn" onclick="postGlobal()">Broadcast Now</button>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<a href="https://wa.me/918810285636" class="wa-float-btn"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+    const SYSTEM_KEY = "Mkclasses@1303";
+    let S_DB = JSON.parse(localStorage.getItem('MK_S_DB')) || [];
+    let N_DB = JSON.parse(localStorage.getItem('MK_N_DB')) || [];
+
+    // Navigation Matrix
+    function switchTab(id, btn) {
+        console.log("Switching to: " + id);
+        document.querySelectorAll('.view-pane').forEach(v => v.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.querySelectorAll('.matrix-item').forEach(m => m.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        
+        if(id === 'about') displayNews();
+        window.scrollTo(0,0);
+    }
+
+    // Gallery Engine
+    function updateGal(key, btn) {
+        const viewer = document.getElementById('campus_img');
+        document.querySelectorAll('.campus-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const images = {
+            hostel: 'https://images.unsplash.com/photo-1555854817-5b27a8a28592?w=600',
+            classroom: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600',
+            library: 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=600',
+            lab: 'https://images.unsplash.com/photo-1581093588401-fbb62a02f120?w=600',
+            ground: 'https://images.unsplash.com/photo-1595113316349-9fa4ee24f884?w=600'
+        };
+        viewer.src = images[key];
+    }
+
+    // Admin Access
+    function adminAccess() {
+        if(document.getElementById('m_pass').value === SYSTEM_KEY) {
+            document.getElementById('a_lock_screen').style.display = 'none';
+            document.getElementById('a_console').style.display = 'block';
+        } else {
+            alert("ACCESS DENIED: WRONG PIN");
+        }
+    }
+
+    // Data Sync Power
+    function saveRecord() {
+        const n = document.getElementById('n_name').value;
+        const i = document.getElementById('n_id').value.toUpperCase();
+        const p = parseInt(document.getElementById('n_paid').value) || 0;
+        const t = parseInt(document.getElementById('n_total').value) || 0;
+
+        if(!n || !i) return alert("Fill Name/ID");
+
+        const data = { n, i, p, t };
+        const idx = S_DB.findIndex(s => s.i === i);
+        if(idx > -1) S_DB[idx] = data; else S_DB.push(data);
+
+        localStorage.setItem('MK_S_DB', JSON.stringify(S_DB));
+        alert("Cadet " + i + " Record Saved.");
+        location.reload();
+    }
+
+    // Global Notice Power
+    function postGlobal() {
+        const m = document.getElementById('n_msg').value;
+        if(!m) return;
+        N_DB.unshift({ m, d: new Date().toLocaleDateString() });
+        localStorage.setItem('MK_N_DB', JSON.stringify(N_DB));
+        alert("Broadcast Published.");
+        displayNews();
+    }
+
+    function displayNews() {
+        const container = document.getElementById('news_feed');
+        if(N_DB.length === 0) {
+            container.innerHTML = "<p style='text-align:center; font-size:11px;'>No active announcements.</p>";
+            return;
+        }
+        container.innerHTML = N_DB.map(n => `
+            <div style="padding:12px 0; border-bottom:1px dashed #ffa62b;">
+                <small style="color:#d97706; font-weight:900;">${n.d}</small>
+                <p style="font-size:12px; font-weight:600; color:#0f172a; margin-top:3px;">${n.m}</p>
+            </div>
+        `).join('');
+    }
+
+    // Student Login
+    function stuLogin() {
+        const name = document.getElementById('stu_name').value.toLowerCase();
+        const id = document.getElementById('stu_id').value.toUpperCase();
+        const student = S_DB.find(s => s.n.toLowerCase() === name && s.i === id);
+
+        if(student) {
+            document.getElementById('p_login_box').style.display = 'none';
+            const dash = document.getElementById('stu_dash');
+            dash.style.display = 'block';
+            dash.innerHTML = `
+                <div class="premium-card" style="text-align:center;">
+                    <h2 style="font-family:Montserrat; font-size:22px;">Welcome, ${student.n}</h2>
+                    <p style="font-weight:900; color:var(--mk-accent); margin-bottom:15px;">ID: ${student.i}</p>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                        <div style="background:#dcfce7; padding:18px; border-radius:15px; border:2px solid #22c55e;">
+                            <small style="font-weight:800; font-size:9px;">FEES PAID</small><h3 style="font-size:18px;">₹${student.p}</h3>
+                        </div>
+                        <div style="background:#fee2e2; padding:18px; border-radius:15px; border:2px solid #ef4444;">
+                            <small style="font-weight:800; font-size:9px;">PENDING DUE</small><h3 style="font-size:18px;">₹${student.t - student.p}</h3>
+                        </div>
+                    </div>
+                    <button class="mk-main-btn" style="margin-top:20px; background:#64748b;" onclick="location.reload()">Secure Logout</button>
+                </div>
+            `;
+        } else {
+            alert("Record not found! Contact office.");
+        }
+    }
+
+    window.onload = displayNews;
+</script>
+
+</body>
+</html>
