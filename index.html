@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MK Group | Premium Portal</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --mk-orange: #ff7800;
+            --mk-navy: #050a12;
+            --mk-navy-soft: #111827;
+            --mk-white: #ffffff;
+            --mk-bg: #f3f6f9;
+            --header-h: 140px; /* Big & Bold Header */
+            --radius: 18px;
+            --shadow: 0 12px 30px rgba(0,0,0,0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--mk-bg);
+            padding-top: calc(var(--header-h) + 20px);
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* ============================================================
+           1. BIG PREMIUM HEADER
+           ============================================================ */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            height: var(--header-h); background: var(--mk-navy);
+            z-index: 1000; border-bottom: 5px solid var(--mk-orange);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+            display: flex; flex-direction: column;
+        }
+
+        .brand-box {
+            flex: 1; display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, #050a12 0%, #111827 100%);
+        }
+
+        .brand-box h1 {
+            font-family: 'Montserrat', sans-serif; color: #fff;
+            font-size: 24px; letter-spacing: 1.5px; text-transform: uppercase;
+            text-align: center;
+        }
+
+        .brand-box h1 span { color: var(--mk-orange); }
+
+        /* NAVIGATION SYSTEM */
+        nav.nav-bar {
+            height: 60px; display: grid; grid-template-columns: repeat(4, 1fr);
+            background: var(--mk-navy-soft);
+        }
+
+        .nav-link {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: #9ca3af; text-decoration: none; border: none; background: none;
+            font-size: 9px; font-weight: 700; text-transform: uppercase; cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .nav-link i { font-size: 20px; margin-bottom: 3px; color: var(--mk-orange); }
+        .nav-link.active { color: #fff; background: rgba(255,120,0,0.15); border-top: 3px solid var(--mk-orange); }
+
+        /* ============================================================
+           2. GAP & SPACING SYSTEM
+           ============================================================ */
+        .viewport { padding: 0 18px 120px; max-width: 550px; margin: 0 auto; }
+        
+        /* Proper Gap between cards */
+        .section-page { display: none; animation: fadeIn 0.4s ease-out; }
+        .section-page.active { display: block; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .premium-card {
+            background: #fff; border-radius: var(--radius); padding: 25px;
+            margin-bottom: 25px; /* PROPER GAPING */
+            box-shadow: var(--shadow); border-top: 4px solid var(--mk-orange);
+            position: relative;
+        }
+
+        .card-head {
+            font-weight: 800; font-size: 16px; color: var(--mk-navy);
+            margin-bottom: 18px; display: flex; align-items: center; gap: 12px;
+        }
+
+        .card-head i { color: var(--mk-orange); font-size: 18px; }
+
+        /* ============================================================
+           3. HOME & INSTALL BAR
+           ============================================================ */
+        .install-strip {
+            background: var(--mk-orange); color: #000; padding: 14px 20px;
+            border-radius: 12px; display: flex; align-items: center; 
+            justify-content: space-between; margin-bottom: 25px;
+            font-weight: 800; font-size: 13px; box-shadow: 0 6px 15px rgba(255,120,0,0.2);
+        }
+
+        .install-btn {
+            background: #000; color: #fff; border: none; padding: 7px 15px;
+            border-radius: 8px; font-size: 11px; font-weight: 900; cursor: pointer;
+        }
+
+        /* ============================================================
+           4. ADMISSION FORM (SIMPLE 4 FIELDS)
+           ============================================================ */
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 11px; font-weight: 800; color: #6b7280; margin-bottom: 6px; text-transform: uppercase; }
+        
+        .mk-field {
+            width: 100%; padding: 16px; border-radius: 12px;
+            border: 2px solid #e5e7eb; font-size: 15px; font-weight: 600;
+            transition: 0.3s; background: #f9fafb;
+        }
+
+        .mk-field:focus { border-color: var(--mk-orange); outline: none; background: #fff; box-shadow: 0 0 0 4px rgba(255,120,0,0.1); }
+
+        .btn-action {
+            width: 100%; padding: 18px; background: var(--mk-navy);
+            color: #fff; border: none; border-radius: 12px;
+            font-weight: 800; text-transform: uppercase; cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        /* ============================================================
+           5. CLEAN PANELS (NO ADDRESS REPEAT)
+           ============================================================ */
+        .notice-well { border-radius: var(--radius); overflow: hidden; border: 2px solid var(--mk-navy); background: #fff; }
+        .notice-header { background: var(--mk-navy); color: var(--mk-orange); padding: 15px; font-weight: 900; text-align: center; }
+        .notice-item { padding: 18px; border-bottom: 1px solid #f1f5f9; }
+        .notice-date { font-size: 10px; font-weight: 900; color: var(--mk-orange); margin-bottom: 5px; display: block; }
+
+        /* ================= :::: FOOTER :::: ================= */
+        footer {
+            background: var(--mk-navy); color: #fff; padding: 50px 20px;
+            text-align: center; border-radius: 30px 30px 0 0; margin-top: 30px;
+        }
+        .foot-logo { font-size: 26px; font-weight: 900; color: var(--mk-orange); margin-bottom: 15px; }
+        .foot-addr { font-size: 14px; opacity: 0.8; line-height: 1.6; max-width: 300px; margin: 0 auto; }
+
+        /* WHATSAPP */
+        .wa-sticky {
+            position: fixed; bottom: 30px; right: 25px;
+            width: 65px; height: 65px; background: #25d366;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 32px; box-shadow: 0 8px 25px rgba(0,0,0,0.2); z-index: 1001;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="brand-box">
+        <h1>MK GROUP <span>OF INSTITUTIONS</span></h1>
+    </div>
+    <nav class="nav-bar">
+        <button class="nav-link active" onclick="tab('home', this)"><i class="fa fa-home-alt"></i><span>Home</span></button>
+        <button class="nav-link" onclick="tab('apply', this)"><i class="fa fa-user-edit"></i><span>Apply</span></button>
+        <button class="nav-link" onclick="tab('news', this)"><i class="fa fa-bullhorn"></i><span>Notice</span></button>
+        <button class="nav-link" onclick="tab('fees', this)"><i class="fa fa-wallet"></i><span>Fees</span></button>
+        <button class="nav-link" onclick="tab('portal', this)"><i class="fa fa-user-shield"></i><span>Portal</span></button>
+        <button class="nav-link" onclick="tab('admin', this)"><i class="fa fa-key"></i><span>Staff</span></button>
+        <button class="nav-link" onclick="tab('call', this)"><i class="fa fa-phone-alt"></i><span>Call</span></button>
+        <button class="nav-link" onclick="tab('info', this)"><i class="fa fa-info-circle"></i><span>Info</span></button>
+    </nav>
+</header>
+
+<main class="viewport">
+
+    <section id="home" class="section-page active">
+        <div class="install-strip">
+            <span><i class="fa fa-download"></i> Get Official MK Classes App</span>
+            <button class="install-btn" onclick="appDl()">INSTALL</button>
+        </div>
+
+        <div class="premium-card" style="background: var(--mk-orange); border: none; text-align: center;">
+            <h2 style="font-family: 'Montserrat'; font-size: 26px; color: #000;">WELCOME TO MK CLASSES</h2>
+            <p style="font-weight: 800; font-size: 12px; color: #000; letter-spacing: 2.5px;">YOUR FUTURE OUR MISSION</p>
+        </div>
+
+        <div class="premium-card">
+            <div class="card-head"><i class="fa fa-star"></i> Our Mission</div>
+            <p>Specialized guidance for <b>Sainik School, RMS, and RIMC</b>. We build discipline, character, and academic excellence in every cadet.</p>
+        </div>
+
+        <div class="premium-card">
+            <div class="card-head"><i class="fa fa-map-marked-alt"></i> Campus Location</div>
+            <p style="font-weight: 700; color: var(--mk-navy);">As khrab college kasni jhajjar haryana</p>
+            <p style="font-size: 13px; color: #6b7280; margin-top: 8px;">A state-of-the-art residential campus designed for complete preparation.</p>
+        </div>
+    </section>
+
+    <section id="apply" class="section-page">
+        <div class="premium-card">
+            <div class="card-head"><i class="fa fa-file-signature"></i> Admission Enquiry</div>
+            <div class="input-group">
+                <label>Student's Name</label>
+                <input type="text" id="a_name" class="mk-field" placeholder="Full Name">
+            </div>
+            <div class="input-group">
+                <label>Father's Name</label>
+                <input type="text" id="a_father" class="mk-field" placeholder="Father's Name">
+            </div>
+            <div class="input-group">
+                <label>Class for Admission</label>
+                <input type="text" id="a_class" class="mk-field" placeholder="e.g. 6th / 9th">
+            </div>
+            <div class="input-group">
+                <label>WhatsApp Number</label>
+                <input type="number" id="a_phone" class="mk-field" placeholder="10-digit number">
+            </div>
+            <button class="btn-action" onclick="sendReq()">Submit Application</button>
+        </div>
+    </section>
+
+    <section id="news" class="section-page">
+        <div class="notice-well">
+            <div class="notice-header">BROADCAST CENTER</div>
+            <div id="news_box">
+                <p style="text-align:center; padding:40px; color:#94a3b8;">Syncing Live Updates...</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="fees" class="section-page">
+        <div class="premium-card">
+            <div class="card-head"><i class="fa fa-receipt"></i> Annual Fee Structure</div>
+            <div style="display:flex; justify-content:space-between; padding:15px 0; border-bottom:1px solid #f3f4f6;">
+                <span>Class 6th Prep</span><b style="color:var(--mk-orange);">₹1,50,000</b>
+            </div>
+            <div style="display:flex; justify-content:space-between; padding:15px 0; border-bottom:1px solid #f3f4f6;">
+                <span>Class 9th Prep</span><b style="color:var(--mk-orange);">₹1,75,000</b>
+            </div>
+            <p style="font-size:11px; color:#6b7280; margin-top:15px;">*Inclusive of AC Hostel, Mess, Laundry, and Study Material.</p>
+        </div>
+    </section>
+
+    <section id="portal" class="section-page">
+        <div class="premium-card" id="login_ui">
+            <div class="card-head"><i class="fa fa-id-card-alt"></i> Cadet Portal</div>
+            <input type="text" id="u_n" class="mk-field" placeholder="Cadet Name" style="margin-bottom:15px;">
+            <input type="text" id="u_i" class="mk-field" placeholder="Admission ID (MK-XXXX)">
+            <button class="btn-action" style="margin-top:20px;" onclick="doLogin()">View Student Dashboard</button>
+        </div>
+        <div id="dash_ui" style="display:none;"></div>
+    </section>
+
+    <section id="admin" class="section-page">
+        <div class="premium-card" id="lock_ui">
+            <div class="card-head"><i class="fa fa-lock"></i> Security Access</div>
+            <input type="password" id="sys_pin" class="mk-field" placeholder="Master PIN">
+            <button class="btn-action" style="margin-top:15px;" onclick="unlock()">Authenticate</button>
+        </div>
+        <div id="staff_ui" style="display:none;">
+            <div class="premium-card">
+                <h3>Sync Cadet Data</h3>
+                <input type="text" id="db_n" class="mk-field" placeholder="Name" style="margin-top:10px;">
+                <input type="text" id="db_i" class="mk-field" placeholder="ID" style="margin-top:10px;">
+                <input type="number" id="db_p" class="mk-field" placeholder="Paid" style="margin-top:10px;">
+                <input type="number" id="db_t" class="mk-field" placeholder="Total" style="margin-top:10px;">
+                <button class="btn-action" onclick="saveS()" style="margin-top:15px;">Save Record</button>
+            </div>
+            <div class="premium-card">
+                <h3>Post Notice</h3>
+                <textarea id="db_m" class="mk-field" style="height:100px; margin-top:10px;" placeholder="Message..."></textarea>
+                <button class="btn-action" onclick="saveN()" style="margin-top:15px;">Publish Notice</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="call" class="section-page">
+        <div class="premium-card" style="text-align:center;">
+            <div class="card-head" style="justify-content:center;"><i class="fa fa-phone-volume"></i> Support Helpline</div>
+            <h1 style="font-size: 30px; margin: 15px 0;">8810285636</h1>
+            <a href="tel:8810285636" class="btn-action" style="text-decoration:none; display:block;">Call Admissions Office</a>
+        </div>
+    </section>
+
+    <section id="info" class="section-page">
+        <div class="premium-card">
+            <div class="card-head"><i class="fa fa-check-double"></i> Premium Facilities</div>
+            <ul style="list-style: none; font-size: 14px;">
+                <li style="margin-bottom:12px;"><i class="fa fa-check-circle" style="color:var(--mk-orange); margin-right:10px;"></i> Experienced Defence Mentors</li>
+                <li style="margin-bottom:12px;"><i class="fa fa-check-circle" style="color:var(--mk-orange); margin-right:10px;"></i> AC Smart Classrooms</li>
+                <li style="margin-bottom:12px;"><i class="fa fa-check-circle" style="color:var(--mk-orange); margin-right:10px;"></i> Nutritious Mess Facility</li>
+                <li style="margin-bottom:12px;"><i class="fa fa-check-circle" style="color:var(--mk-orange); margin-right:10px;"></i> Weekly Mock Test Series</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <div class="foot-logo">MK GROUP</div>
+        <p class="foot-addr">As khrab college kasni jhajjar haryana<br>mkinstitute70@gmail.com | 8810285636</p>
+        <p style="margin-top:30px; font-size:10px; color:#4b5563; letter-spacing:1px;">V5.FINAL EDITION | 2026</p>
+    </footer>
+
+</main>
+
+<a href="https://wa.me/918810285636" class="wa-sticky"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+    const MASTER_PIN = "Mkclasses@1303";
+    let DB_S = JSON.parse(localStorage.getItem('MKS_FINAL')) || [];
+    let DB_N = JSON.parse(localStorage.getItem('MKN_FINAL')) || [];
+
+    function tab(id, btn) {
+        document.querySelectorAll('.section-page').forEach(p => p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        if(id === 'news') renderN();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function appDl() { alert("Initiating MK Classes Secure APK Download... v10.5"); }
+
+    function sendReq() {
+        const n = document.getElementById('a_name').value;
+        if(!n) return alert("Bhai details fill kijiye!");
+        alert(`Jai Hind ${n}! Registration successful. We will call you soon.`);
+        location.reload();
+    }
+
+    function unlock() {
+        if(document.getElementById('sys_pin').value === MASTER_PIN) {
+            document.getElementById('lock_ui').style.display = 'none';
+            document.getElementById('staff_ui').style.display = 'block';
+        } else alert("Access Denied!");
+    }
+
+    function saveS() {
+        const n = document.getElementById('db_n').value, i = document.getElementById('db_i').value.toUpperCase(),
+              p = parseInt(document.getElementById('db_p').value) || 0, t = parseInt(document.getElementById('db_t').value) || 0;
+        DB_S.push({n,i,p,t});
+        localStorage.setItem('MKS_FINAL', JSON.stringify(DB_S));
+        alert("Cadet Saved.");
+    }
+
+    function saveN() {
+        const m = document.getElementById('db_m').value;
+        DB_N.unshift({m, d: new Date().toLocaleDateString('en-IN')});
+        localStorage.setItem('MKN_FINAL', JSON.stringify(DB_N));
+        alert("Broadcast Sent.");
+        renderN();
+    }
+
+    function renderN() {
+        const box = document.getElementById('news_box');
+        if(DB_N.length === 0) { box.innerHTML = '<p style="text-align:center; padding:30px;">No updates.</p>'; return; }
+        box.innerHTML = DB_N.map(n => `<div class="notice-item"><span class="notice-date">${n.d}</span><p style="font-weight:600; font-size:14px;">${n.m}</p></div>`).join('');
+    }
+
+    function doLogin() {
+        const n = document.getElementById('u_n').value.toLowerCase(), i = document.getElementById('u_i').value.toUpperCase();
+        const s = DB_S.find(x => x.n.toLowerCase() === n && x.i === i);
+        if(s) {
+            document.getElementById('login_ui').style.display = 'none';
+            const ui = document.getElementById('dash_ui'); ui.style.display = 'block';
+            ui.innerHTML = `<div class="premium-card" style="text-align:center; border: 4px solid var(--mk-orange);"><h3>JAI HIND, ${s.n}</h3><p style="font-size:12px; color:#6b7280;">ID: ${s.i}</p><div style="display:flex; gap:10px; margin-top:20px;"><div style="flex:1; background:#f0fdf4; padding:15px; border-radius:10px; border:1px solid #2ecc71;"><small>PAID</small><br><b>₹${s.p}</b></div><div style="flex:1; background:#fef2f2; padding:15px; border-radius:10px; border:1px solid #ef4444;"><small>BALANCE</small><br><b>₹${s.t-s.p}</b></div></div><button class="btn-action" style="background:#64748b; margin-top:25px;" onclick="location.reload()">TERMINATE SESSION</button></div>`;
+        } else alert("Cadet Not Found.");
+    }
+
+    window.onload = renderN;
+</script>
+
+</body>
+</html>
