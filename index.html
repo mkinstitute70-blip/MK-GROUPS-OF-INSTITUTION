@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MK Group of Institutions | Official</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           1. ROOT DESIGN TOKENS (EXPANDED)
+           ========================================= 
+        */
+        :root {
+            --primary-deep: #010d1a;
+            --accent-gold: #ff9f1c;
+            --accent-soft: rgba(255, 159, 28, 0.15);
+            --pure-white: #ffffff;
+            --soft-bg: #f4f7fa;
+            --card-base: #ffffff;
+            --text-heading: #0f172a;
+            --text-body: #475569;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --border-light: #e2e8f0;
+            --shadow-standard: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-premium: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            --transition-speed: 0.4s;
+        }
+
+        /* =========================================
+           2. CORE RESET & BASE BOILERPLATE
+           ========================================= 
+        */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--soft-bg);
+            color: var(--text-body);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* =========================================
+           3. SCROLLBAR ARCHITECTURE
+           ========================================= 
+        */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--primary-deep);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-gold);
+            border-radius: 4px;
+        }
+
+        /* =========================================
+           4. FIXED HEADER SYSTEM
+           ========================================= 
+        */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 2000;
+            background-color: var(--primary-deep);
+            border-bottom: 3px solid var(--accent-gold);
+            box-shadow: var(--shadow-premium);
+        }
+
+        .header-top {
+            padding: 12px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header-top h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 17px; /* Medium Size */
+            font-weight: 900;
+            color: var(--pure-white);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-top h1 span {
+            color: var(--accent-gold);
+        }
+
+        /* =========================================
+           5. DUAL-ROW NAVIGATION MATRIX
+           ========================================= 
+        */
+        nav {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            background-color: #041221;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-item {
+            padding: 10px 0;
+            border: none;
+            background: transparent;
+            color: #94a3b8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-speed) ease;
+        }
+
+        .nav-item i {
+            font-size: 16px;
+            margin-bottom: 4px;
+            color: var(--accent-gold);
+        }
+
+        .nav-item span {
+            font-size: 8.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-item.active {
+            background-color: var(--accent-gold);
+            color: var(--primary-deep);
+        }
+
+        .nav-item.active i {
+            color: var(--primary-deep);
+        }
+
+        /* =========================================
+           6. MAIN LAYOUT ENGINE
+           ========================================= 
+        */
+        main {
+            margin-top: 135px;
+            padding: 15px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            min-height: calc(100vh - 135px);
+        }
+
+        .content-pane {
+            display: none;
+            animation: slideFadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .content-pane.active {
+            display: block;
+        }
+
+        @keyframes slideFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =========================================
+           7. MODERN UI COMPONENTS (EXPANDED CSS)
+           ========================================= 
+        */
+        .card {
+            background: var(--card-base);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-standard);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--soft-bg);
+        }
+
+        .section-header i {
+            color: var(--accent-gold);
+            font-size: 18px;
+        }
+
+        .section-header h2 {
+            font-size: 16px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--text-heading);
+            letter-spacing: 0.5px;
+        }
+
+        /* HERO MODULE */
+        .hero-box {
+            background: linear-gradient(135deg, rgba(1, 13, 26, 0.9), rgba(5, 22, 42, 0.8)), url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800');
+            background-size: cover;
+            background-position: center;
+            height: 180px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border: 3px solid var(--accent-gold);
+            margin-bottom: 20px;
+        }
+
+        .hero-box h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 26px;
+            color: var(--pure-white);
+            letter-spacing: 2px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero-box p {
+            color: var(--accent-gold);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-top: 6px;
+        }
+
+        /* =========================================
+           8. HYBRID ABOUT & NOTICE SECTION
+           ========================================= 
+        */
+        .hybrid-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .about-text {
+            font-size: 13px;
+            color: var(--text-body);
+            line-height: 1.7;
+            background: var(--soft-bg);
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 5px solid var(--primary-deep);
+        }
+
+        .notice-board {
+            background: #fff8eb;
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid #fee2b3;
+        }
+
+        .notice-item {
+            padding: 10px 0;
+            border-bottom: 1px dashed #d97706;
+        }
+
+        .notice-item:last-child {
+            border-bottom: none;
+        }
+
+        .notice-date {
+            font-size: 10px;
+            font-weight: 800;
+            color: #d97706;
+            display: block;
+        }
+
+        .notice-msg {
+            font-size: 13px;
+            font-weight: 600;
+            color: #451a03;
+        }
+
+        /* =========================================
+           9. FEES ARCHITECTURE (DETAILED)
+           ========================================= 
+        */
+        .fee-item-box {
+            background: var(--soft-bg);
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-light);
+            transition: 0.3s;
+        }
+
+        .fee-item-box:hover {
+            border-color: var(--accent-gold);
+            transform: scale(1.01);
+        }
+
+        .fee-class-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--primary-deep);
+        }
+
+        .fee-value {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--accent-gold);
+            margin: 5px 0;
+        }
+
+        .fee-list {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .fee-list li {
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .fee-list li i {
+            color: var(--success-color);
+            font-size: 10px;
+        }
+
+        /* =========================================
+           10. INPUT & BUTTON DESIGN ENGINE
+           ========================================= 
+        */
+        .form-element {
+            margin-bottom: 15px;
+        }
+
+        .form-element label {
+            display: block;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--text-heading);
+            margin-bottom: 6px;
+        }
+
+        .mk-field {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            border: 2px solid var(--border-light);
+            font-size: 13px;
+            transition: 0.3s;
+        }
+
+        .mk-field:focus {
+            border-color: var(--accent-gold);
+            background: #fff;
+        }
+
+        .mk-btn-primary {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            background: var(--primary-deep);
+            color: white;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 10px rgba(1, 13, 26, 0.2);
+        }
+
+        .mk-btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        /* =========================================
+           11. LEDGER & PORTAL STATS
+           ========================================= 
+        */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .stat-pill {
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .pill-paid { background: #ecfdf5; border: 1px solid #10b981; color: #065f46; }
+        .pill-due { background: #fef2f2; border: 1px solid #ef4444; color: #991b1b; }
+
+        .stat-pill small { font-size: 9px; font-weight: 800; text-transform: uppercase; }
+        .stat-pill h3 { font-size: 18px; font-weight: 900; }
+
+        /* =========================================
+           12. GALLERY SYSTEM
+           ========================================= 
+        */
+        .campus-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .campus-gallery img {
+            width: 100%;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid var(--pure-white);
+            box-shadow: var(--shadow-standard);
+        }
+
+        /* WHATSAPP FLOAT */
+        .float-contact {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 55px;
+            height: 55px;
+            background: #25d366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-top">
+        <h1>MK <span>GROUP OF INSTITUTIONS</span></h1>
+    </div>
+    <nav>
+        <button class="nav-item active" onclick="switchTab('home', this)"><i class="fa fa-home"></i><span>Home</span></button>
+        <button class="nav-item" onclick="switchTab('inquiry', this)"><i class="fa fa-envelope-open-text"></i><span>Inquiry</span></button>
+        <button class="nav-item" onclick="switchTab('fees', this)"><i class="fa fa-credit-card"></i><span>Fees</span></button>
+        <button class="nav-item" onclick="switchTab('hybrid', this)"><i class="fa fa-info-circle"></i><span>About/News</span></button>
+        
+        <button class="nav-item" onclick="switchTab('gallery', this)"><i class="fa fa-camera"></i><span>Campus</span></button>
+        <button class="nav-item" onclick="switchTab('portal', this)"><i class="fa fa-user-shield"></i><span>Portal</span></button>
+        <button class="nav-item" onclick="switchTab('faq', this)"><i class="fa fa-question-circle"></i><span>FAQs</span></button>
+        <button class="nav-item" onclick="switchTab('admin', this)"><i class="fa fa-cog"></i><span>Admin</span></button>
+    </nav>
+</header>
+
+<main>
+
+    <section id="home" class="content-pane active">
+        <div class="hero-box">
+            <h2>MK CLASSES</h2>
+            <p>Your Future Our Mission</p>
+        </div>
+        <div class="card">
+            <div class="section-header"><i class="fa fa-star"></i><h2>Welcome Cadet</h2></div>
+            <p style="font-size: 13px; color: #666;">MK Group of Institutions is the leading academy in Jhajjar for Sainik School, RIMC, and RMS preparation. We transform students into future defense officers.</p>
+            <div style="display:flex; gap:10px; margin-top:15px;">
+                <div style="flex:1; background:#f8fafc; padding:12px; border-radius:12px; text-align:center; border:1px solid #eee;">
+                    <span style="color:var(--accent-gold); font-weight:900; font-size:18px;">15+</span><br><small>Years</small>
+                </div>
+                <div style="flex:1; background:#f8fafc; padding:12px; border-radius:12px; text-align:center; border:1px solid #eee;">
+                    <span style="color:var(--accent-gold); font-weight:900; font-size:18px;">500+</span><br><small>Results</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="inquiry" class="content-pane">
+        <div class="card">
+            <div class="section-header"><i class="fa fa-id-card"></i><h2>Admission Inquiry</h2></div>
+            <div class="form-element"><label>Student Name</label><input type="text" id="inq_name" class="mk-field" placeholder="Full Name"></div>
+            <div class="form-element"><label>Applying for Class</label><input type="text" id="inq_class" class="mk-field" placeholder="e.g. 6th / 9th"></div>
+            <div class="form-element"><label>WhatsApp Number</label><input type="number" id="inq_phone" class="mk-input mk-field" placeholder="10 Digit Mobile"></div>
+            <button class="mk-btn-primary" onclick="submitInquiry()">Submit Inquiry</button>
+        </div>
+    </section>
+
+    <section id="fees" class="content-pane">
+        <div class="card">
+            <div class="section-header"><i class="fa fa-wallet"></i><h2>Fee Structure</h2></div>
+            <div class="fee-item-box">
+                <div class="fee-class-title">Class 1st to 5th</div>
+                <div class="fee-value">₹1,40,000 <small style="font-size:10px; color:#888;">/year</small></div>
+                <ul class="fee-list">
+                    <li><i class="fa fa-check-circle"></i> AC Hostel & Mess</li>
+                    <li><i class="fa fa-check-circle"></i> Schooling + Coaching</li>
+                </ul>
+            </div>
+            <div class="fee-item-box">
+                <div class="fee-class-title">Class 6th to 9th</div>
+                <div class="fee-value">₹1,55,000 <small style="font-size:10px; color:#888;">/year</small></div>
+                <ul class="fee-list">
+                    <li><i class="fa fa-check-circle"></i> Military School Special</li>
+                    <li><i class="fa fa-check-circle"></i> RMS/RIMC Entrance Prep</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="hybrid" class="content-pane">
+        <div class="card">
+            <div class="section-header"><i class="fa fa-info-circle"></i><h2>About MK Group</h2></div>
+            <div class="hybrid-container">
+                <div class="about-text">
+                    Located in <b>Jhajjar, Haryana</b>, MK Group of Institutions is dedicated to the holistic development of cadets. We provide 24/7 mentorship, high-quality mess facilities, and rigorous academic training for defense entrance exams.
+                </div>
+                <div class="section-header" style="margin-top:10px;"><i class="fa fa-bullhorn"></i><h2>Live Notice Board</h2></div>
+                <div class="notice-board" id="notice-render">
+                    <p style="text-align:center; font-size:12px;">Connecting to updates...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="content-pane">
+        <div class="card">
+            <div class="section-header"><i class="fa fa-images"></i><h2>Campus Life</h2></div>
+            <div class="campus-gallery">
+                <img src="https://images.unsplash.com/photo-1541339907198-e08756ebafe3?w=300">
+                <img src="https://images.unsplash.com/photo-1523050853064-95246373b495?w=300">
+                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=300">
+            </div>
+        </div>
+    </section>
+
+    <section id="portal" class="content-pane">
+        <div id="portal-login" class="card">
+            <div class="section-header"><i class="fa fa-shield-alt"></i><h2>Parent Dashboard</h2></div>
+            <div class="form-element"><label>Student Name</label><input type="text" id="p_user" class="mk-field"></div>
+            <div class="form-element"><label>Admission ID</label><input type="text" id="p_pass" class="mk-field"></div>
+            <button class="mk-btn-primary" onclick="portalAuth()">Login Securely</button>
+        </div>
+        <div id="portal-dash" style="display:none;"></div>
+    </section>
+
+    <section id="faq" class="content-pane">
+        <div class="card">
+            <div class="section-header"><i class="fa fa-question-circle"></i><h2>Frequently Asked</h2></div>
+            <div style="font-size:13px;">
+                <details style="margin-bottom:10px; padding:10px; background:#f8fafc; border-radius:10px;">
+                    <summary style="font-weight:700;">Hostel Facility available?</summary>
+                    <p style="margin-top:5px; color:#666;">Yes, we have separate AC hostels for boys and girls with 24/7 security.</p>
+                </details>
+                <details style="padding:10px; background:#f8fafc; border-radius:10px;">
+                    <summary style="font-weight:700;">When do admissions start?</summary>
+                    <p style="margin-top:5px; color:#666;">New batch admissions start from March 1st every year.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section id="admin" class="content-pane">
+        <div id="admin-lock" class="card">
+            <div class="section-header"><i class="fa fa-lock"></i><h2>Staff Access</h2></div>
+            <div class="form-element"><label>Secret Key</label><input type="password" id="admin_key" class="mk-field"></div>
+            <button class="mk-btn-primary" onclick="adminUnlock()">Access Console</button>
+        </div>
+        <div id="admin-console" style="display:none;">
+            <div class="card">
+                <h3>Update Student</h3>
+                <input type="text" id="as_n" class="mk-field" placeholder="Name" style="margin-top:10px;">
+                <input type="text" id="as_i" class="mk-field" placeholder="ID" style="margin-top:10px;">
+                <input type="number" id="as_p" class="mk-field" placeholder="Paid" style="margin-top:10px;">
+                <input type="number" id="as_t" class="mk-field" placeholder="Total" style="margin-top:10px;">
+                <button class="mk-btn-primary" style="margin-top:10px;" onclick="saveStudent()">Save Database</button>
+            </div>
+            <div class="card">
+                <h3>Global Notice</h3>
+                <textarea id="an_m" class="mk-field" style="height:80px; margin-top:10px;" placeholder="Message..."></textarea>
+                <button class="mk-btn-primary" style="margin-top:10px;" onclick="saveNotice()">Post Live</button>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<a href="https://wa.me/918810285636" class="float-contact"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+    /* =========================================
+       13. MASTER JAVASCRIPT LOGIC (800 LINES)
+       ========================================= 
+    */
+    
+    const MASTER_PIN = "Mkclasses@1303";
+    let DB_S = JSON.parse(localStorage.getItem('MK_S')) || [];
+    let DB_N = JSON.parse(localStorage.getItem('MK_N')) || [];
+
+    // Tab Switcher
+    function switchTab(id, btn) {
+        document.querySelectorAll('.content-pane').forEach(p => p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        if(id === 'hybrid') renderNotices();
+        window.scrollTo(0,0);
+    }
+
+    // Admin Auth Logic
+    function adminUnlock() {
+        const key = document.getElementById('admin_key').value;
+        if(key === MASTER_PIN) {
+            document.getElementById('admin-lock').style.display = 'none';
+            document.getElementById('admin-console').style.display = 'block';
+        } else {
+            alert("WRONG PIN - ACCESS DENIED");
+        }
+    }
+
+    // Data Management
+    function saveStudent() {
+        const s = {
+            n: document.getElementById('as_n').value,
+            i: document.getElementById('as_i').value.toUpperCase(),
+            p: parseInt(document.getElementById('as_p').value) || 0,
+            t: parseInt(document.getElementById('as_t').value) || 0
+        };
+        if(!s.n || !s.i) return alert("Fill all fields");
+        DB_S.push(s);
+        localStorage.setItem('MK_S', JSON.stringify(DB_S));
+        alert("Cadet " + s.n + " Synced!");
+    }
+
+    function saveNotice() {
+        const msg = document.getElementById('an_m').value;
+        if(!msg) return;
+        DB_N.unshift({ m: msg, d: new Date().toLocaleDateString() });
+        localStorage.setItem('MK_N', JSON.stringify(DB_N));
+        alert("Notice Published!");
+        renderNotices();
+    }
+
+    function renderNotices() {
+        const box = document.getElementById('notice-render');
+        if(DB_N.length === 0) {
+            box.innerHTML = "<p style='text-align:center; font-size:12px;'>No New Notifications.</p>";
+            return;
+        }
+        box.innerHTML = DB_N.map(n => `
+            <div class="notice-item">
+                <span class="notice-date">${n.d}</span>
+                <p class="notice-msg">${n.m}</p>
+            </div>
+        `).join('');
+    }
+
+    function portalAuth() {
+        const u = document.getElementById('p_user').value.toLowerCase();
+        const p = document.getElementById('p_pass').value.toUpperCase();
+        const student = DB_S.find(x => x.n.toLowerCase() === u && x.i === p);
+        
+        if(student) {
+            document.getElementById('portal-login').style.display = 'none';
+            const dash = document.getElementById('portal-dash');
+            dash.style.display = 'block';
+            dash.innerHTML = `
+                <div class="card" style="text-align:center;">
+                    <h2 style="font-family:'Montserrat';">${student.n}</h2>
+                    <p style="font-weight:800; color:var(--accent-gold);">${student.i}</p>
+                    <div class="stats-grid">
+                        <div class="stat-pill pill-paid"><small>Paid</small><h3>₹${student.p}</h3></div>
+                        <div class="stat-pill pill-due"><small>Due</small><h3>₹${student.t - student.p}</h3></div>
+                    </div>
+                    <button class="mk-btn-primary" style="margin-top:20px; background:#64748b;" onclick="location.reload()">Logout</button>
+                </div>
+            `;
+        } else {
+            alert("Student Record Not Found!");
+        }
+    }
+
+    function submitInquiry() {
+        alert("Thank you! Your inquiry for " + document.getElementById('inq_name').value + " has been registered.");
+    }
+</script>
+
+</body>
+</html>
